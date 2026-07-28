@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" height="300" font-family="ui-sans-serif,system-ui,sans-serif">
+<style>.t{fill:#8b8b8b;font-size:11px}.l{fill:#8b8b8b;font-size:12px}.g{stroke:#8b8b8b;stroke-opacity:.22}</style>
+<text x="46" y="20" class="l" font-size="13" font-weight="600">Longueur des phrases, mot par mot</text>
+<text x="46" y="36" class="t">un texte marqué tient sur un plateau, un texte écrit respire</text>
+<line x1="46" y1="238.0" x2="744" y2="238.0" class="g"/>
+<text x="38" y="242.0" class="t" text-anchor="end">0</text>
+<line x1="46" y1="190.0" x2="744" y2="190.0" class="g"/>
+<text x="38" y="194.0" class="t" text-anchor="end">8</text>
+<line x1="46" y1="142.0" x2="744" y2="142.0" class="g"/>
+<text x="38" y="146.0" class="t" text-anchor="end">17</text>
+<line x1="46" y1="94.0" x2="744" y2="94.0" class="g"/>
+<text x="38" y="98.0" class="t" text-anchor="end">25</text>
+<line x1="46" y1="46.0" x2="744" y2="46.0" class="g"/>
+<text x="38" y="50.0" class="t" text-anchor="end">34</text>
+<polyline points="46.0,136.4 109.5,147.6 172.9,142.0 236.4,147.6 299.8,147.6 363.3,147.6 426.7,147.6 490.2,147.6 553.6,147.6 617.1,153.3 680.5,158.9" fill="none" stroke="#d1495b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="46.0" cy="136.4" r="2.8" fill="#d1495b"/>
+<circle cx="109.5" cy="147.6" r="2.8" fill="#d1495b"/>
+<circle cx="172.9" cy="142.0" r="2.8" fill="#d1495b"/>
+<circle cx="236.4" cy="147.6" r="2.8" fill="#d1495b"/>
+<circle cx="299.8" cy="147.6" r="2.8" fill="#d1495b"/>
+<circle cx="363.3" cy="147.6" r="2.8" fill="#d1495b"/>
+<circle cx="426.7" cy="147.6" r="2.8" fill="#d1495b"/>
+<circle cx="490.2" cy="147.6" r="2.8" fill="#d1495b"/>
+<circle cx="553.6" cy="147.6" r="2.8" fill="#d1495b"/>
+<circle cx="617.1" cy="153.3" r="2.8" fill="#d1495b"/>
+<circle cx="680.5" cy="158.9" r="2.8" fill="#d1495b"/>
+<line x1="46" y1="262" x2="68" y2="262" stroke="#d1495b" stroke-width="2.4"/>
+<text x="76" y="266" class="l">texte marqué : plateau · moyenne 16.0 mots · écart type 1.0</text>
+<polyline points="46.0,102.5 109.5,198.5 172.9,113.8 236.4,209.8 299.8,147.6 363.3,108.1 426.7,198.5 490.2,74.2 553.6,158.9 617.1,181.5 680.5,153.3 744.0,192.8" fill="none" stroke="#2a9d8f" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="46.0" cy="102.5" r="2.8" fill="#2a9d8f"/>
+<circle cx="109.5" cy="198.5" r="2.8" fill="#2a9d8f"/>
+<circle cx="172.9" cy="113.8" r="2.8" fill="#2a9d8f"/>
+<circle cx="236.4" cy="209.8" r="2.8" fill="#2a9d8f"/>
+<circle cx="299.8" cy="147.6" r="2.8" fill="#2a9d8f"/>
+<circle cx="363.3" cy="108.1" r="2.8" fill="#2a9d8f"/>
+<circle cx="426.7" cy="198.5" r="2.8" fill="#2a9d8f"/>
+<circle cx="490.2" cy="74.2" r="2.8" fill="#2a9d8f"/>
+<circle cx="553.6" cy="158.9" r="2.8" fill="#2a9d8f"/>
+<circle cx="617.1" cy="181.5" r="2.8" fill="#2a9d8f"/>
+<circle cx="680.5" cy="153.3" r="2.8" fill="#2a9d8f"/>
+<circle cx="744.0" cy="192.8" r="2.8" fill="#2a9d8f"/>
+<line x1="46" y1="280" x2="68" y2="280" stroke="#2a9d8f" stroke-width="2.4"/>
+<text x="76" y="284" class="l">texte révisé : respiration · moyenne 15.0 mots · écart type 7.6</text>
+<line x1="46" y1="238" x2="744" y2="238" stroke="#8b8b8b" stroke-opacity=".5"/>
+<text x="744" y="256" class="t" text-anchor="end">rang de la phrase</text>
+</svg>

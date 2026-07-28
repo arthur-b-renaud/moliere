@@ -1,0 +1,63 @@
+name: contrôle
+
+# Le dépôt s'applique ses propres règles. Si le linter échoue sur les
+# exemples corrigés, c'est le linter ou l'exemple qui a tort, et il faut
+# trancher avant de fusionner.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  moliere:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Les exemples corrigés passent le contrôle
+        run: |
+          python3 scripts/moliere_lint.py exemples/post-apres.md \
+            --profil post --seuil 90 --strict
+          python3 scripts/moliere_lint.py exemples/note-apres.md \
+            --profil note --seuil 90 --strict
+
+      - name: Les exemples marqués sont bien détectés
+        run: |
+          python3 - <<'PY'
+          import json, subprocess, sys
+
+          def score(chemin, profil):
+              out = subprocess.run(
+                  [sys.executable, "scripts/moliere_lint.py", chemin,
+                   "--profil", profil, "--json"],
+                  capture_output=True, text=True, check=True).stdout
+              return json.loads(out)[0]["score"]
+
+          for chemin, profil in (("exemples/post-avant.md", "post"),
+                                 ("exemples/note-avant.md", "note")):
+              s = score(chemin, profil)
+              print(f"{chemin} : {s}/100")
+              assert s < 70, f"{chemin} devrait etre detecte comme marque"
+          PY
+
+      - name: Typographie du skill lui-même
+        run: |
+          python3 scripts/moliere_lint.py skills/ \
+            --controles typo --profil note --seuil 85 --strict
+
+      # Les fichiers *-avant.md gardent volontairement leurs marqueurs :
+      # ce sont les cas de test de detection, pas des textes a corriger.
+      - name: L'autofixeur n'a plus rien à corriger
+        run: |
+          python3 scripts/typo_fix.py skills/ exemples/post-apres.md \
+            exemples/note-apres.md | tee /tmp/typo.txt
+          grep -q "rien a corriger" /tmp/typo.txt
+
+      - name: Les scripts se compilent
+        run: python3 -m compileall -q scripts/

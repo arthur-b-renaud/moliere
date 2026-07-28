@@ -1,0 +1,14 @@
+{
+  "name": "moliere",
+  "owner": {
+    "name": "Arthur Renaud",
+    "url": "https://github.com/arthur-b-renaud"
+  },
+  "plugins": [
+    {
+      "name": "moliere",
+      "source": "./",
+      "description": "Ecrire et reviser en francais sans marqueurs de redaction automatique ni calques de l'anglais."
+    }
+  ]
+}
