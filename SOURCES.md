@@ -75,6 +75,8 @@ Chacune illustre une section, aucune n'est décorative.
 
 Le montage des deux toiles provient d'une source non identifiée. Les œuvres sont dans le domaine public ; si l'auteur du montage se reconnaît, ouvrir une issue et le crédit sera ajouté.
 
+`assets/moliere-detoure.png` est le portrait de Mignard détouré à partir de ce montage, par le script `assets/gabarits/detoure.py`. L'œuvre étant dans le domaine public, le détourage l'est aussi.
+
 ---
 
 ## Ce que le skill doit à personne
