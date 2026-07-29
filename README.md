@@ -139,8 +139,8 @@ fichier à remplir : le skill fonctionne dès la copie.**
 ### 1. Copier le skill
 
 ```bash
-git clone https://github.com/arthur-b-renaud/skill-moliere.git
-cp -r skill-moliere/skills/moliere ~/.claude/skills/
+git clone https://github.com/arthur-b-renaud/moliere.git
+cp -r moliere/skills/moliere ~/.claude/skills/
 ```
 
 Le skill est disponible dans toutes vos sessions Claude Code. Vérifier :
@@ -155,7 +155,7 @@ Le skill est disponible dans toutes vos sessions Claude Code. Vérifier :
 
 ```bash
 mkdir -p .claude/skills
-cp -r /chemin/vers/skill-moliere/skills/moliere .claude/skills/
+cp -r /chemin/vers/moliere/skills/moliere .claude/skills/
 ```
 
 Utile quand un dépôt contient de la prose française (documentation, site, contenu) et pas les autres.
@@ -165,8 +165,8 @@ Utile quand un dépôt contient de la prose française (documentation, site, con
 Les scripts sont livrés dans le skill : les deux voies ci-dessus les emportent déjà. Cloner le dépôt entier n'ajoute que les exemples, la critique et le contrôle automatique.
 
 ```bash
-git clone https://github.com/arthur-b-renaud/skill-moliere.git
-cd skill-moliere
+git clone https://github.com/arthur-b-renaud/moliere.git
+cd moliere
 python3 skills/moliere/scripts/moliere_lint.py exemples/post-avant.md --profil post
 ```
 
