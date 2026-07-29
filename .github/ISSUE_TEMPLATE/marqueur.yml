@@ -1,0 +1,55 @@
+name: Nouveau marqueur ou nouvelle règle
+description: Proposer un tic de rédaction automatique, un calque ou une faute à traiter
+labels: ["marqueur"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Le dépôt n'accepte pas une règle sans son motif. Une prescription dont on ne
+        peut pas dire pourquoi elle existe finit en superstition typographique.
+
+  - type: input
+    id: marqueur
+    attributes:
+      label: Le marqueur, formulé comme les entrées existantes
+      placeholder: "Antithèse binaire répétée : « Ce n'est pas A. C'est B. »"
+    validations:
+      required: true
+
+  - type: textarea
+    id: exemples
+    attributes:
+      label: Deux exemples réels
+      description: Tirés de textes que vous avez lus, pas fabriqués pour l'occasion.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: correction
+    attributes:
+      label: La correction
+    validations:
+      required: true
+
+  - type: textarea
+    id: motif
+    attributes:
+      label: Le motif
+      description: >-
+        Faute de langue, calque d'une structure anglaise, marqueur statistique
+        de rédaction automatique, ou défaut propre à un support. Dites lequel.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: fichier
+    attributes:
+      label: Où il devrait vivre
+      options:
+        - STYLE.md, si la règle vaut partout
+        - references/marqueurs.md, si c'est un tic de rédaction automatique
+        - references/fautes.md, si c'est une faute de français
+        - references/typographie.md
+        - references/supports.md, si le défaut est propre à un support
+        - Je ne sais pas

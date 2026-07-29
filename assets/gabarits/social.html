@@ -1,0 +1,101 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 640px; }
+  body {
+    background: #12100e;
+    color: #f2ede4;
+    font-family: "DejaVu Sans", sans-serif;
+    display: flex; flex-direction: column;
+    padding: 52px 64px 44px;
+    position: relative; overflow: hidden;
+  }
+  .grain {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(900px 420px at 88% -12%, rgba(209,73,91,.16), transparent 62%),
+      radial-gradient(700px 380px at 4% 108%, rgba(42,157,143,.14), transparent 60%);
+  }
+  header { display: flex; align-items: baseline; gap: 22px; z-index: 1; }
+  h1 {
+    font-family: "DejaVu Serif", serif;
+    font-size: 78px; font-weight: 700; letter-spacing: -1.5px; line-height: 1;
+  }
+  .tag {
+    font-size: 15px; letter-spacing: 2.6px; text-transform: uppercase;
+    color: #d1495b; font-weight: 700; padding-bottom: 10px;
+  }
+  .sub {
+    margin-top: 18px; font-size: 26px; line-height: 1.4; color: #cfc7ba;
+    max-width: 1140px; z-index: 1;
+  }
+  .sub b { color: #f2ede4; font-weight: 700; }
+  .cards { display: flex; gap: 22px; margin-top: 40px; z-index: 1; }
+  .card {
+    flex: 1; border-radius: 12px; padding: 26px 28px 24px;
+    background: #1b1815; border: 1px solid #2e2822;
+    display: flex; flex-direction: column;
+  }
+  .card.good { border-color: #2a9d8f55; background: #16201d; }
+  .label {
+    font-size: 12.5px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8d8377; font-weight: 700; margin-bottom: 12px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card.good .label { color: #2a9d8f; }
+  .score { font-family: "DejaVu Serif", serif; font-size: 22px; font-weight: 700; color: #d1495b; letter-spacing: 0; }
+  .card.good .score { color: #2a9d8f; }
+  .card p { font-size: 21px; line-height: 1.5; color: #b9b0a4; }
+  .card.good p { color: #e7e0d5; }
+  .chips { display: flex; gap: 12px; margin-top: 30px; z-index: 1; }
+  .chip { font-size: 17px; color: #cfc7ba; background: #1b1815; border: 1px solid #2e2822;
+          border-radius: 999px; padding: 9px 20px; }
+  .chip b { color: #e9a13b; font-weight: 700; }
+  .card p em { font-style: normal; color: #d1495b; border-bottom: 2px solid #d1495b66; }
+  footer {
+    margin-top: auto; padding-top: 26px; z-index: 1;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 18px; color: #8d8377;
+    border-top: 1px solid #2a241e;
+  }
+  footer .path { font-family: "DejaVu Sans Mono", monospace; font-size: 17px; color: #cfc7ba; }
+  footer .meta { display: flex; gap: 26px; }
+</style>
+<div class="grain"></div>
+
+<header>
+  <h1>Molière</h1>
+  <span class="tag">Skill Claude Code</span>
+</header>
+
+<p class="sub">
+  Écrire un français contemporain qui n'a l'air <b>ni traduit, ni écrit par une machine</b>.
+</p>
+
+<div class="cards">
+  <div class="card">
+    <div class="label"><span>Ce que produit un modèle</span><span class="score">34/100</span></div>
+    <p>Notre écosystème RH se transforme en profondeur <em>—</em> et cela n'est pas un détail,
+       <em>offrant ainsi</em> une meilleure visibilité.</p>
+  </div>
+  <div class="card good">
+    <div class="label"><span>Après révision</span><span class="score">100/100</span></div>
+    <p>Onze candidats sur douze ont abandonné avant l'entretien. Pas après. Avant.</p>
+  </div>
+</div>
+
+<div class="chips">
+  <span class="chip"><b>document</b> &nbsp;devis, proposition, rapport</span>
+  <span class="chip"><b>post</b> &nbsp;publication courte</span>
+  <span class="chip"><b>presentation</b> &nbsp;slides</span>
+  <span class="chip">rien à configurer</span>
+</div>
+
+<footer>
+  <span class="path">github.com/arthur-b-renaud/moliere</span>
+  <span class="meta">
+    <span>Fichier de règles portable</span>
+    <span>Linter sans dépendance</span>
+  </span>
+</footer>

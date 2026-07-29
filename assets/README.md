@@ -4,45 +4,52 @@ Ce dossier ne contient que ce qui ne peut pas être écrit en texte. Un tableau 
 
 ## Ce qui est là
 
-| Fichier | Origine | Comment le refaire |
-|---|---|---|
-| `entete.webp` | Montage de deux portraits du domaine public, voir `SOURCES.md` | Recadrer en 1280 × 400 pour la bannière |
-| `rythme.svg` | Généré | `python3 skills/moliere/scripts/courbe_rythme.py exemples/document-avant.md exemples/document-apres.md -o assets/rythme.svg --titres "texte marqué : plateau" "texte révisé : respiration"` |
+| Fichier | Format | Où il sert | Comment le refaire |
+|---|---|---|---|
+| `social-preview.png` | 1280 × 640 | Vignette affichée quand le lien du dépôt est partagé | `gabarits/social.html`, rendu à 2× puis réduit |
+| `carte-marqueurs.png` | 1080 × 1080 | Section « Ce que le skill corrige », et se partage seule | `gabarits/carte.html`, même procédé |
+| `rythme.svg` | vectoriel | Section « Le marqueur qu'on ne voit pas en lisant » | commande ci-dessous |
+| `entete.webp` | bannière | Haut du README | Montage de deux portraits du domaine public, voir `SOURCES.md` |
+
+Les deux images matricielles se régénèrent à partir des gabarits HTML de `gabarits/`, sans autre dépendance qu'un navigateur :
+
+```bash
+google-chrome --headless=new --disable-gpu --hide-scrollbars \
+  --force-device-scale-factor=2 --window-size=1280,640 \
+  --screenshot=/tmp/social@2x.png "file://$PWD/assets/gabarits/social.html"
+convert /tmp/social@2x.png -resize 1280x640 -strip assets/social-preview.png
+```
+
+Le rendu à 2× puis la réduction donnent un anticrénelage propre sur les petits corps de texte, ce qu'une capture à 1× ne produit pas. Pour la carte, remplacer les dimensions par 1080 × 1080.
+
+```bash
+python3 skills/moliere/scripts/courbe_rythme.py \
+  exemples/document-avant.md exemples/document-apres.md \
+  -o assets/rythme.svg --titres "texte marqué : plateau" "texte révisé : respiration"
+```
 
 `rythme.svg` est régénérable et versionné. Il ne demande aucune dépendance, il pèse trois kilo-octets, et il reste lisible en thème clair comme en thème sombre.
 
-## Ce qui manque, par ordre de rendement
+## L'aperçu social se règle à la main
 
-### 1. L'aperçu social, 1280 × 640
+`social-preview.png` est versionné, mais **GitHub n'expose aucune API pour l'installer**. C'est la seule étape manuelle du dépôt :
 
-C'est l'image qui s'affiche quand quelqu'un partage le lien du dépôt sur LinkedIn ou sur X. Elle se règle dans **Settings → General → Social preview** et elle ne vit pas dans le dépôt.
+> Settings → General → Social preview → Upload an image → `assets/social-preview.png`
 
-C'est de loin l'image la plus rentable, et la seule dont l'absence coûte vraiment : sans elle, GitHub affiche une vignette générique qui ne dit rien.
+Sans elle, GitHub affiche une vignette générique quand quelqu'un partage le lien sur LinkedIn ou sur X, et c'est de là que vient l'essentiel du trafic.
 
-Ce qu'elle doit porter, dans cet ordre : le mot **Molière**, une ligne de sous-titre qui dit ce que c'est, et le contraste avant-après réduit à deux phrases. Pas de capture d'écran de terminal : illisible à cette taille dans un fil.
+## Ce qui manque encore
 
-### 2. La bannière d'en-tête, 1280 × 400
-
-`entete.webp` fait l'affaire mais n'est pas recadrée : les deux portraits en pied prennent trop de hauteur. Un recadrage sur les visages, avec le titre en surimpression, tiendrait mieux.
+**Une bannière recadrée.** `entete.webp` fait l'affaire mais n'est pas recadrée : les deux portraits en pied prennent trop de hauteur. Un recadrage sur les visages, avec le titre en surimpression, tiendrait mieux.
 
 ```bash
 convert assets/entete.webp -resize 1280x -gravity north -crop 1280x400+0+40 assets/banniere.webp
 ```
 
-### 3. La carte des marqueurs, format carré
-
-Les huit tics les plus fréquents et leur correction, sur une image carrée pensée pour être repartagée seule. C'est le contenu qui circule le mieux, parce qu'il est utile sans le dépôt.
-
-Prendre les huit premières lignes du tableau « Ce que le skill corrige » du README.
-
-### 4. L'enregistrement de terminal
-
-Une révision réelle dans Claude Code, de la demande au texte rendu. À faire avec [`vhs`](https://github.com/charmbracelet/vhs), qui produit un GIF à partir d'un script versionnable, plutôt qu'avec un enregistreur d'écran dont personne ne pourra refaire la prise.
-
-Garder sous quarante secondes. Au-delà, personne ne regarde jusqu'au bout.
+**Un enregistrement de terminal.** Une révision réelle, de la demande au texte rendu. À faire avec [`vhs`](https://github.com/charmbracelet/vhs), qui produit un GIF à partir d'un script versionnable, plutôt qu'avec un enregistreur d'écran dont personne ne pourra refaire la prise. Garder sous quarante secondes : au-delà, personne ne regarde jusqu'au bout.
 
 ## Ce qu'il ne faut pas ajouter
 
 - **Une capture de la sortie du linter.** Le README la donne en bloc de code : plus lisible, cherchable, et elle ne ment pas quand la sortie change.
-- **Un badge de couverture ou de qualité** qui ne mesure rien de réel. Le dépôt en porte déjà quatre, ce qui est la limite avant que personne ne les lise.
+- **Un badge qui ne mesure rien de réel.** Le dépôt en porte cinq, ce qui est la limite avant que personne ne les lise.
 - **Des icônes décoratives dans les titres.** Le skill proscrit les puces à emoji ; le dépôt ne va pas s'en dispenser.

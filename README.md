@@ -10,6 +10,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/arthur-b-renaud/moliere/actions/workflows/lint.yml"><img alt="Contrôle" src="https://github.com/arthur-b-renaud/moliere/actions/workflows/lint.yml/badge.svg"></a>
   <a href="#licence"><img alt="Licence MIT et CC BY 4.0" src="https://img.shields.io/badge/licence-MIT%20%2B%20CC%20BY%204.0-blue"></a>
   <img alt="Python 3.8+" src="https://img.shields.io/badge/python-3.8%2B-blue">
   <img alt="Sans dépendance" src="https://img.shields.io/badge/d%C3%A9pendances-aucune-green">
@@ -292,6 +293,10 @@ Une slide n'a ni attaque, ni chute, ni rythme : le linter ne contrôle pas ces t
 | Emphase | « un changement absolument majeur » | « n'est pas sans conséquence » |
 | Rythme uniforme | douze phrases de dix-huit mots | écart type supérieur à six |
 | Tiret cadratin | « le harnais compte — et de loin » | « le harnais compte, et de loin » |
+
+<p align="center">
+  <img src="assets/carte-marqueurs.png" alt="Huit tics qui trahissent un texte écrit par une machine, avec leur correction" width="72%">
+</p>
 
 Vingt réécritures commentées dans [`exemples-phrases.md`](skills/moliere/references/exemples-phrases.md), trois textes entiers dans [`exemples-textes.md`](skills/moliere/references/exemples-textes.md).
 

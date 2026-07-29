@@ -1,0 +1,44 @@
+name: Faux positif du linter
+description: Le linter signale quelque chose qui est correct
+labels: ["faux positif"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        C'est la contribution la plus utile au dépôt. Trois contrôles reposent sur des
+        heuristiques et se trompent par construction, ce que `CRITIQUE.md` §7 assume :
+        un linter de style sans faux positif est un linter qui ne trouve rien.
+
+  - type: textarea
+    id: phrase
+    attributes:
+      label: La phrase incriminée
+      description: Collez-la telle quelle, sans la corriger.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: constat
+    attributes:
+      label: Ce que le linter en dit
+      placeholder: "[alerte] « négociation » revient apres 2 mots"
+    validations:
+      required: true
+
+  - type: textarea
+    id: pourquoi
+    attributes:
+      label: Pourquoi la phrase est correcte
+      description: >-
+        Terme technique du domaine, parallélisme voulu, citation, usage régional.
+        Ce qui compte est le motif : une règle dont on ne peut pas donner le motif
+        est une superstition.
+    validations:
+      required: true
+
+  - type: input
+    id: profil
+    attributes:
+      label: Profil employé
+      placeholder: document, post ou presentation

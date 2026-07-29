@@ -1,0 +1,93 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1080px; }
+  body {
+    background: #12100e; color: #f2ede4;
+    font-family: "DejaVu Sans", sans-serif;
+    padding: 56px 60px 48px; display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(760px 380px at 92% -8%, rgba(209,73,91,.15), transparent 62%),
+      radial-gradient(620px 340px at 0% 106%, rgba(42,157,143,.13), transparent 60%);
+  }
+  header { z-index: 1; }
+  h1 {
+    font-family: "DejaVu Serif", serif; font-size: 50px; font-weight: 700;
+    letter-spacing: -.8px; line-height: 1.1;
+  }
+  .kicker {
+    font-size: 14px; letter-spacing: 2.6px; text-transform: uppercase;
+    color: #d1495b; font-weight: 700; margin-bottom: 14px;
+  }
+  .lede { margin-top: 14px; font-size: 20px; color: #a89e91; line-height: 1.45; max-width: 900px; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 34px; z-index: 1; }
+  th {
+    text-align: left; font-size: 12px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: #8d8377; font-weight: 700; padding: 0 0 14px;
+  }
+  th.r { color: #2a9d8f; }
+  td {
+    font-size: 20.5px; line-height: 1.36; padding: 15px 0;
+    border-top: 1px solid #241f1a; vertical-align: top;
+  }
+  td.l { color: #b9b0a4; width: 50%; padding-right: 26px; }
+  td.r { color: #f2ede4; padding-left: 26px; border-left: 1px solid #241f1a; }
+  td.l s { text-decoration: none; color: #d1495b; }
+  td.r b { color: #2a9d8f; font-weight: 400; }
+
+  footer {
+    margin-top: auto; padding-top: 30px; z-index: 1;
+    border-top: 1px solid #2a241e;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .path { font-family: "DejaVu Sans Mono", monospace; font-size: 19px; color: #cfc7ba;
+          white-space: nowrap; }
+  .note { font-size: 16.5px; color: #8d8377; text-align: right; white-space: nowrap; }
+</style>
+<div class="glow"></div>
+
+<header>
+  <div class="kicker">Molière · skill Claude Code</div>
+  <h1>Huit tics qui trahissent<br>un texte écrit par une machine</h1>
+  <p class="lede">Aucun n'est une faute. Chacun est un marqueur : un trait dont la fréquence
+    est anormale sous une plume humaine.</p>
+</header>
+
+<table>
+  <tr><th>Ce qu'écrit le modèle</th><th class="r">Ce qu'écrit quelqu'un</th></tr>
+
+  <tr><td class="l">Le dispositif réduit les coûts, <s>permettant ainsi</s> d'améliorer la marge</td>
+      <td class="r">Le dispositif réduit les coûts <b>et améliore donc</b> la marge</td></tr>
+
+  <tr><td class="l">Le harnais compte <s>—</s> et de loin</td>
+      <td class="r">Le harnais compte<b>,</b> et de loin</td></tr>
+
+  <tr><td class="l">Une plateforme <s>rapide, fiable et évolutive</s></td>
+      <td class="r">Une plateforme <b>qui tient la charge</b></td></tr>
+
+  <tr><td class="l"><s>La mise en œuvre de l'accompagnement</s> des équipes</td>
+      <td class="r"><b>Former</b> les équipes</td></tr>
+
+  <tr><td class="l"><s>Adresser cette problématique</s> de manière stratégique</td>
+      <td class="r"><b>Traiter</b> cette question</td></tr>
+
+  <tr><td class="l"><s>Une entreprise du secteur bancaire</s> a récemment constaté</td>
+      <td class="r"><b>Le 12 mars, Schneider</b> a constaté</td></tr>
+
+  <tr><td class="l"><s>Dans un monde où</s> l'IA transforme les métiers…</td>
+      <td class="r">Onze candidats sur douze <b>ont abandonné avant l'entretien</b></td></tr>
+
+  <tr><td class="l">Douze phrases de dix-huit mots à la file</td>
+      <td class="r">Sept mots. Puis trente-cinq. <b>L'écart fait la langue</b></td></tr>
+</table>
+
+<footer>
+  <span class="path">github.com/arthur-b-renaud/moliere</span>
+  <span class="note">Un fichier de règles à copier partout, un linter sans dépendance</span>
+</footer>

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Contester une règle
+    url: https://github.com/arthur-b-renaud/moliere/blob/main/CRITIQUE.md
+    about: Douze points que l'auteur juge encore discutables, avec les réécritures proposées. Le vôtre y est peut-être déjà.
