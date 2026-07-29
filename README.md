@@ -5,8 +5,8 @@
 <h1 align="center">Molière</h1>
 
 <p align="center">
-  <em>Un skill Claude Code pour écrire un français qui n'a pas l'air traduit,<br>
-  ni écrit par une machine.</em>
+  <em>Un skill Claude Code pour écrire un français contemporain<br>
+  qui n'a pas l'air traduit, ni écrit par une machine.</em>
 </p>
 
 <p align="center">
@@ -18,20 +18,21 @@
 
 ---
 
-> **In English, briefly.** `moliere` is a Claude Code skill that writes and edits French prose without the tells of machine writing or literal translation from English. It bundles a style guide (rhythm, connectives, verbs, French typography), a blacklist of LLM markers, and a zero-dependency Python linter that measures what a language model cannot reliably count: sentence-length variance, opening-line length, marker density, factual anchoring. Four profiles: LinkedIn post (default), analysis note, email, commercial proposal. Everything below is in French, because the subject is.
+> **In English, briefly.** `moliere` is a Claude Code skill that writes and edits contemporary French prose without the tells of machine writing or literal translation from English. Its core is a single self-contained rules file, `STYLE.md`, which you can also paste straight into a GPT or a Gem if you don't use Claude Code. It ships with concrete before/after examples and a zero-dependency Python linter that measures what a language model cannot reliably count: sentence-length variance, opening-line length, marker density, factual anchoring. Three supports: multi-page documents, short posts, slide decks. Nothing to configure. Everything below is in French, because the subject is.
 
 ---
 
 ## Sommaire
 
 - [Le problème](#le-problème)
+- [Le fichier de règles, à copier partout](#le-fichier-de-règles-à-copier-partout)
 - [Installation](#installation)
 - [Tutoriel en cinq minutes](#tutoriel-en-cinq-minutes)
-- [Les quatre profils](#les-quatre-profils)
+- [Les trois supports](#les-trois-supports)
 - [Les trois modes](#les-trois-modes)
 - [Ce que le skill corrige](#ce-que-le-skill-corrige)
 - [Le linter](#le-linter)
-- [Le personnaliser](#le-personnaliser)
+- [Le régler](#le-régler)
 - [Pourquoi Molière](#pourquoi-molière)
 - [Ce que le skill ne fait pas](#ce-que-le-skill-ne-fait-pas)
 - [Sources](#sources)
@@ -81,7 +82,7 @@ Ce qui coûtait, ce n'était pas l'absence d'outil. C'était le silence.
 </tr>
 </table>
 
-Les deux textes sont dans [`exemples/`](exemples/), avec les versions complètes et le relevé des interventions dans [`avant-apres.md`](skills/moliere/references/avant-apres.md). Les scores sortent du linter fourni, que vous pouvez relancer vous-même.
+Les deux textes sont dans [`exemples/`](exemples/), avec les versions complètes et le relevé des interventions dans [`exemples-textes.md`](skills/moliere/references/exemples-textes.md). Les scores sortent du linter fourni, que vous pouvez relancer vous-même.
 
 ### Le marqueur qu'on ne voit pas en lisant
 
@@ -96,14 +97,44 @@ Le texte généré tient sur un plateau : onze phrases de quatorze à dix-huit m
 La courbe se génère sur vos propres textes :
 
 ```bash
-python3 scripts/courbe_rythme.py avant.md apres.md -o rythme.svg
+python3 skills/moliere/scripts/courbe_rythme.py avant.md apres.md -o rythme.svg
 ```
+
+---
+
+## Le fichier de règles, à copier partout
+
+> « Le style est l'homme même. »
+> Buffon, *Discours sur le style*, 1753
+
+Tout le contenu du skill tient dans un seul fichier :
+**[`skills/moliere/STYLE.md`](skills/moliere/STYLE.md)**, 1 900 mots, autoportant.
+
+Il ne renvoie à rien, ne suppose aucun outil, et ne mentionne nulle part Claude Code. C'est
+délibéré : **ouvrez-le, copiez-le, collez-le dans les instructions de votre GPT, de votre Gem ou
+de n'importe quel assistant.** Il y fonctionne tel quel.
+
+| Section | Ce qu'elle règle |
+|---|---|
+| 1. La phrase | Ordre des mots, place forte, subordination, cascades de compléments |
+| 2. Le rythme | Alternance, écart type, placement des phrases brèves |
+| 3. Les connecteurs | Ce qui nomme le lien que l'anglais laisse deviner |
+| 4. Le verbe | Verbe précis contre nominalisation, et la position sur les anglicismes |
+| 5. Le fait | Ancrage, chiffre rapporté, attribution, conditionnel |
+| 6. Le ton | Litote, et l'exception du texte qui engage |
+| 7. Les huit défauts qui signent | Dont les deux seules règles absolues |
+| 8. Typographie | Le minimum vital |
+| 9. Eco | Quatre conseils qui commettent la faute qu'ils dénoncent |
+
+Le reste du dépôt sert à un agent qui sait lire un dossier : des exemples, des listes, des scripts.
+Le fichier ci-dessus suffit à un humain.
 
 ---
 
 ## Installation
 
-Trois voies. La première suffit dans la plupart des cas.
+Trois voies. La première suffit dans la plupart des cas. **Il n'y a rien à configurer et aucun
+fichier à remplir : le skill fonctionne dès la copie.**
 
 ### 1. Copier le skill
 
@@ -129,14 +160,14 @@ cp -r /chemin/vers/skill-moliere/skills/moliere .claude/skills/
 
 Utile quand un dépôt contient de la prose française (documentation, site, contenu) et pas les autres.
 
-### 3. Avec les outils
+### 3. Avec les exemples et l'intégration continue
 
-Les scripts sont indépendants du skill. Pour que Claude puisse les lancer, garder le dépôt entier et travailler dedans :
+Les scripts sont livrés dans le skill : les deux voies ci-dessus les emportent déjà. Cloner le dépôt entier n'ajoute que les exemples, la critique et le contrôle automatique.
 
 ```bash
 git clone https://github.com/arthur-b-renaud/skill-moliere.git
 cd skill-moliere
-python3 scripts/moliere_lint.py exemples/post-avant.md --profil post
+python3 skills/moliere/scripts/moliere_lint.py exemples/post-avant.md --profil post
 ```
 
 Aucune dépendance à installer. Python 3.8 suffit.
@@ -157,7 +188,7 @@ Dans Claude Code, demandez simplement :
 notre délai de recrutement en répondant sous 48 h.
 ```
 
-Le skill se déclenche seul. Il prend le profil `post`, lit `linkedin.md`, et applique le socle commun. Vous n'avez rien à invoquer.
+Le skill se déclenche seul. Il lit `STYLE.md`, prend le profil `post` et applique le socle commun. Vous n'avez rien à invoquer.
 
 Ce qu'il fait sans qu'on le lui demande : il vous réclamera un chiffre si vous n'en donnez pas. C'est voulu. Un post sans fait opposable est un post que personne ne discutera.
 
@@ -185,10 +216,10 @@ Le mode épuration touche au plus une phrase sur trois. C'est la différence ave
 
 ### Étape 4. Mesurer
 
-Le skill énonce dix règles « mécaniques, vérifiables en comptant ». Or compter est exactement ce qu'un modèle de langue fait mal. D'où le linter :
+Le skill énonce des règles « mécaniques, vérifiables en comptant ». Or compter est exactement ce qu'un modèle de langue fait mal. D'où le linter, qui reste facultatif :
 
 ```bash
-python3 scripts/moliere_lint.py mon-post.md --profil post
+python3 skills/moliere/scripts/moliere_lint.py mon-post.md --profil post
 ```
 
 ```
@@ -214,28 +245,23 @@ profil post · 180 mots · 12 phrases   score 34/100
 Et pour corriger la typographie sans toucher au style :
 
 ```bash
-python3 scripts/typo_fix.py mon-post.md            # montre le diff
-python3 scripts/typo_fix.py mon-post.md --ecrire   # applique
+python3 skills/moliere/scripts/typo_fix.py mon-post.md            # montre le diff
+python3 skills/moliere/scripts/typo_fix.py mon-post.md --ecrire   # applique
 ```
-
-### Étape 5, facultative. Lui donner votre voix
-
-Ouvrez [`skills/moliere/references/corpus-voix.md`](skills/moliere/references/corpus-voix.md) et collez-y cinq à dix textes que vous avez publiés et que vous assumez. C'est le seul fichier que le propriétaire du skill remplit lui-même, et c'est celui qui change tout : sans lui, vous obtenez du bon français neutre ; avec lui, vous obtenez le vôtre.
 
 ---
 
-## Les quatre profils
+## Les trois supports
 
-Le socle est commun. Les profils n'assouplissent que ce qui les concerne.
+Le style ne change pas d'un support à l'autre. La longueur, la distance au lecteur et la place de l'information changent, et rien d'autre.
 
 | Profil | Pour | Ce qui change |
 |---|---|---|
-| **`post`** *(défaut)* | LinkedIn, X, newsletter | Le « je » et l'adresse au lecteur sont autorisés, le staccato toléré une fois, l'attaque doit tenir avant la coupure du « voir plus » |
-| **`note`** | Analyse, article, compte rendu | Distance, troisième personne, conditionnel journalistique, attribution des sources, litote |
-| **`courriel`** | Message professionnel | Bref, registre tenu, une demande par message. On ne fait pas de style dans un courriel |
-| **`proposition`** | Offre, devis, appel d'offres | Verbe précis, chiffre opposable, engagement daté. Pas de litote : le client doit lire un engagement |
+| **`document`** *(défaut)* | Devis, proposition, note, rapport, compte rendu. Un courriel est un document court | Plan apparent, distance, troisième personne, attribution des sources. Un devis engage : verbe précis, chiffre opposable, date, et pas de litote |
+| **`post`** | Publication courte, billet, message de communauté | Le « je » et l'adresse au lecteur sont autorisés, le staccato toléré une fois, l'attaque doit tenir avant la coupure du « voir plus » |
+| **`presentation`** | Slides, quel que soit l'outil | Le titre porte le message et non le sujet, douze mots par puce, pas de point final, la prose descend dans les notes |
 
-C'est le repositionnement le plus utile de ce skill. La version d'origine était calibrée pour la presse écrite et proscrivait le « je », l'adresse au lecteur et l'exclamation. Un bon post LinkedIn vit de ces trois interdits.
+Une slide n'a ni attaque, ni chute, ni rythme : le linter ne contrôle pas ces trois points en profil `presentation`. Le détail est dans [`supports.md`](skills/moliere/references/supports.md), le seul fichier du dépôt qui parle d'un support plutôt que de la langue.
 
 ---
 
@@ -267,7 +293,7 @@ C'est le repositionnement le plus utile de ce skill. La version d'origine était
 | Rythme uniforme | douze phrases de dix-huit mots | écart type supérieur à six |
 | Tiret cadratin | « le harnais compte — et de loin » | « le harnais compte, et de loin » |
 
-Vingt réécritures commentées dans [`clinique.md`](skills/moliere/references/clinique.md), deux textes entiers dans [`avant-apres.md`](skills/moliere/references/avant-apres.md).
+Vingt réécritures commentées dans [`exemples-phrases.md`](skills/moliere/references/exemples-phrases.md), trois textes entiers dans [`exemples-textes.md`](skills/moliere/references/exemples-textes.md).
 
 ### Le cas du tiret cadratin
 
@@ -285,26 +311,26 @@ Cette page contient trois tirets cadratins. Deux sont dans des contre-exemples, 
 
 ## Le linter
 
-Trois scripts, aucune dépendance, tous facultatifs. Le skill fonctionne sans eux ; il est simplement moins vérifiable.
+Trois scripts, aucune dépendance, **tous facultatifs**. Le skill fonctionne entièrement sans Python : les scripts vérifient, ils ne rédigent rien et ne décident rien.
 
 | Script | Ce qu'il fait |
 |---|---|
-| [`moliere_lint.py`](scripts/moliere_lint.py) | Mesure. Ne corrige rien, ne juge pas le style |
-| [`typo_fix.py`](scripts/typo_fix.py) | Corrige le mécanique et le réversible. Ne touche jamais au style |
-| [`courbe_rythme.py`](scripts/courbe_rythme.py) | Trace la longueur des phrases en SVG |
+| [`moliere_lint.py`](skills/moliere/scripts/moliere_lint.py) | Mesure. Ne corrige rien, ne juge pas le style |
+| [`typo_fix.py`](skills/moliere/scripts/typo_fix.py) | Corrige le mécanique et le réversible. Ne touche jamais au style |
+| [`courbe_rythme.py`](skills/moliere/scripts/courbe_rythme.py) | Trace la longueur des phrases en SVG |
 
 La séparation entre les deux premiers est délibérée. Un outil qui corrige la typographie peut agir seul ; un outil qui corrigerait le style prendrait des décisions qui appartiennent à l'auteur.
 
-`scripts/moliere_lint.py` fait ce qu'un modèle de langue rate : compter.
+`skills/moliere/scripts/moliere_lint.py` fait ce qu'un modèle de langue rate : compter.
 
 ```bash
-python3 scripts/moliere_lint.py FICHIER... [options]
+python3 skills/moliere/scripts/moliere_lint.py FICHIER... [options]
 
-  --profil post|note|courriel|proposition   défaut : post
-  --controles tout|typo                     typo : typographie seule
-  --seuil N                                 score minimal exigé
-  --strict                                  code retour non nul si bloquant
-  --json                                    sortie machine
+  --profil document|post|presentation   défaut : document
+  --controles tout|typo                 typo : typographie seule
+  --seuil N                             score minimal exigé
+  --strict                              code retour non nul si bloquant
+  --json                                sortie machine
 ```
 
 Ce qu'il mesure :
@@ -317,8 +343,9 @@ Ce qu'il mesure :
 - densité de marqueurs lexicaux pour trois cents mots, calques de l'anglais, abréviations de jargon
 - ancrage : présence d'au moins un chiffre, un nom propre ou une date
 - contraintes de plateforme : hashtags, hashtags génériques, longueur
+- puces trop longues et puces terminées par un point, en profil `presentation`
 
-Ce qu'il ne mesure pas : l'orthographe, les accords, la conjugaison. Voir [`scripts/correcteurs.md`](scripts/correcteurs.md) pour les ponts vers LanguageTool, Grammalecte et Hunspell, qui couvrent exactement ce qui manque.
+Ce qu'il ne mesure pas : l'orthographe, les accords, la conjugaison. Voir [`skills/moliere/scripts/correcteurs.md`](skills/moliere/scripts/correcteurs.md) pour les ponts vers LanguageTool, Grammalecte et Hunspell, qui couvrent exactement ce qui manque.
 
 Un fichier qui contient délibérément des contre-exemples se déclare, et tous ses constats passent à titre indicatif :
 
@@ -328,28 +355,28 @@ Un fichier qui contient délibérément des contre-exemples se déclare, et tous
 
 ### Ce dépôt s'applique ses propres règles
 
-L'[intégration continue](.github/workflows/lint.yml) exige que `exemples/post-apres.md` et `exemples/note-apres.md` obtiennent au moins 90, que les versions marquées soient bien détectées sous 70, et que la typographie du skill lui-même soit propre. Si le linter échoue, c'est le linter ou l'exemple qui a tort, et il faut trancher avant de fusionner.
+L'[intégration continue](.github/workflows/lint.yml) exige que les trois exemples corrigés obtiennent au moins 90, que les trois versions marquées soient détectées sous 70, et que la typographie du skill lui-même soit propre. Si le linter échoue, c'est le linter ou l'exemple qui a tort, et il faut trancher avant de fusionner.
 
 ### Le hook, non livré
 
-Un hook `PostToolUse` qui lance le linter à chaque écriture de fichier rendrait les règles réellement contraignantes. Il n'est pas activé dans ce dépôt, parce qu'un hook s'exécute chez celui qui l'installe et que personne n'aime le découvrir après coup. La procédure complète est dans [`scripts/hook-exemple.md`](scripts/hook-exemple.md).
+Un hook `PostToolUse` qui lance le linter à chaque écriture de fichier rendrait les règles réellement contraignantes. Il n'est pas activé dans ce dépôt, parce qu'un hook s'exécute chez celui qui l'installe et que personne n'aime le découvrir après coup. La procédure complète est dans [`skills/moliere/scripts/hook-exemple.md`](skills/moliere/scripts/hook-exemple.md).
 
 ---
 
-## Le personnaliser
+## Le régler
 
-> « Le style est l'homme même. »
-> Buffon, *Discours sur le style*, 1753
+**Il n'y a rien à remplir et aucun fichier à modifier.** Un skill qui exige d'être édité avant de servir n'est pas distribuable : le clone devient sale, et le premier `git pull` produit un conflit. Tous les réglages se disent en conversation.
 
-Un skill de style produit du français correct. Seul un corpus produit du français qui ressemble à quelqu'un.
+| Ce que vous voulez | Ce que vous dites |
+|---|---|
+| Changer de support | « c'est pour une présentation », « c'est un devis » |
+| Garder les tirets cadratins | « garde les tirets, c'est la charte de la maison » |
+| Écrire inclusif autrement | « utilise le point médian » |
+| Écrire à votre voix | Collez deux ou trois de vos textes dans la conversation |
 
-1. Ouvrir `skills/moliere/references/corpus-voix.md`
-2. Y coller cinq à dix textes publiés, avec pour chacun une ligne d'analyse portant sur la mécanique et jamais sur le fond : ce que fait l'attaque, comment la chute retombe, où se trouve la rupture de rythme
-3. Retirer un texte dès qu'il ne représente plus la voix actuelle
+Sur le dernier point : le skill lit vos textes pour leur mécanique, ce que fait l'attaque, comment la chute retombe, où se trouve la rupture de rythme. Jamais pour le fond. Rien n'est conservé d'une session à l'autre, ce qui est le prix du zéro configuration.
 
-Un exemple entièrement rempli figure dans le fichier. Un corpus périmé est pire qu'un corpus vide.
-
-**Régler l'écriture inclusive.** Le défaut du skill : tournures épicènes et collectifs, point médian proscrit pour un motif d'accessibilité, doublets courts admis. Dites-le si vous voulez autre chose, il appliquera sans discuter.
+Le défaut sur l'écriture inclusive : tournures épicènes et collectifs, point médian proscrit pour un motif d'accessibilité, doublets courts admis. Dites-le si vous voulez autre chose, il appliquera sans discuter.
 
 ---
 
@@ -368,7 +395,7 @@ La scène est une leçon de style entière : les mots étaient donnés, tout le 
 
 Une page qui ne dit que ce qu'elle sait faire est une page qui ment par omission.
 
-- **Il ne corrige pas l'orthographe.** Voir [`scripts/correcteurs.md`](scripts/correcteurs.md).
+- **Il ne corrige pas l'orthographe.** Voir [`skills/moliere/scripts/correcteurs.md`](skills/moliere/scripts/correcteurs.md).
 - **Il ne vérifie aucun fait.** Il vous pousse à en donner ; il ne sait pas s'ils sont vrais.
 - **Il ne connaît qu'un français.** Celui de France, registre professionnel. Un lectorat belge, suisse ou québécois trouvera des frottements. Contributions bienvenues.
 - **Ses listes de marqueurs ne sont pas mesurées.** Elles viennent d'une lecture attentive de beaucoup de textes générés, pas d'un corpus annoté. C'est utile et c'est discutable.
@@ -407,7 +434,7 @@ Voir [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Licence
 
-- **Les scripts** (`scripts/`) : [MIT](LICENSE).
+- **Les scripts** (les fichiers `.py`) : [MIT](LICENSE).
 - **Le skill et sa prose** (`skills/`, `exemples/`, documentation) : [CC BY 4.0](LICENSE-CONTENT). Réutilisez, modifiez, redistribuez, y compris commercialement, en citant la source.
 
 Les citations reproduites le sont à des fins de commentaire, avec attribution. Voir `SOURCES.md`.

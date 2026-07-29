@@ -8,7 +8,7 @@ Le dépôt est petit et le restera. Les contributions utiles le sont beaucoup, l
 
 C'est ce qui fait vieillir le dépôt le mieux : les tics des modèles changent tous les six mois. Une bonne proposition contient :
 
-- le marqueur, formulé comme les autres entrées de `references/marqueurs-llm.md`
+- le marqueur, formulé comme les autres entrées de `references/marqueurs.md`
 - **un exemple réel**, pas une reconstitution
 - la correction, écrite
 - si possible, la fréquence observée
@@ -45,11 +45,12 @@ Les dix points ouverts sont dans `CRITIQUE.md`. Une contestation utile donne un 
 ## Le contrôle avant de proposer
 
 ```bash
-python3 scripts/moliere_lint.py exemples/post-apres.md --profil post --seuil 90 --strict
-python3 scripts/moliere_lint.py exemples/note-apres.md --profil note --seuil 90 --strict
-python3 scripts/moliere_lint.py skills/ --controles typo --profil note --seuil 85 --strict
-python3 scripts/typo_fix.py skills/ exemples/post-apres.md exemples/note-apres.md
-python3 -m compileall -q scripts/
+python3 skills/moliere/scripts/moliere_lint.py exemples/post-apres.md --profil post --seuil 90 --strict
+python3 skills/moliere/scripts/moliere_lint.py exemples/document-apres.md --profil document --seuil 90 --strict
+python3 skills/moliere/scripts/moliere_lint.py exemples/presentation-apres.md --profil presentation --seuil 90 --strict
+python3 skills/moliere/scripts/moliere_lint.py skills/ --controles typo --profil document --seuil 85 --strict
+python3 skills/moliere/scripts/typo_fix.py skills/ exemples/post-apres.md exemples/document-apres.md exemples/presentation-apres.md
+python3 -m compileall -q skills/moliere/scripts/
 ```
 
 L'intégration continue lance exactement ces commandes. Si vous touchez au linter, vérifiez aussi que les versions marquées restent détectées sous 70 : un linter qui laisse passer `exemples/post-avant.md` ne sert plus à rien.
@@ -66,4 +67,4 @@ Les scripts sont en ASCII dans le code et les messages, pour éviter les surpris
 
 ## Licence des contributions
 
-En proposant une contribution, vous acceptez qu'elle soit publiée sous les licences du dépôt : MIT pour `scripts/`, CC BY 4.0 pour la prose. Voir `LICENSE` et `LICENSE-CONTENT`.
+En proposant une contribution, vous acceptez qu'elle soit publiée sous les licences du dépôt : MIT pour `skills/moliere/scripts/`, CC BY 4.0 pour la prose. Voir `LICENSE` et `LICENSE-CONTENT`.

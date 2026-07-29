@@ -4,7 +4,7 @@
 
 Référence : Lexique des règles typographiques en usage à l'Imprimerie nationale, complété par les usages de la presse quotidienne française.
 
-Sommaire : 1. Espaces. 2. Ponctuation. 3. Guillemets et citations. 4. Nombres. 5. Majuscules. 6. Sigles et noms propres. 7. Italique. 8. Dates et heures.
+Sommaire : 1. Espaces. 2. Ponctuation. 3. Guillemets et citations. 4. Nombres. 5. Majuscules. 6. Sigles et noms propres. 7. Italique. 8. Dates et heures. 9. Le cas du tiret cadratin. 10. Écriture inclusive.
 
 ---
 
@@ -31,7 +31,7 @@ Attention : les millésimes ne prennent pas d'espace de séparation. On écrit 2
 ## 2. Ponctuation
 
 - La virgule sépare, les deux-points annoncent, le point-virgule met en balance deux propositions de même rang.
-- Le tiret cadratin (U+2014) et le tiret demi-cadratin (U+2013) sont proscrits par défaut, pour un motif statistique et non typographique. Le *Lexique* les admet en incise et les prescrit pour le dialogue ; le français littéraire en use depuis toujours. Mais depuis 2023, un texte professionnel qui en porte plusieurs se lit comme généré. Les exceptions (dialogue de fiction, citation d'une œuvre, convention du support, demande explicite) figurent dans `SKILL.md`, section « Défauts forts ». Hors exception, remplacer par la virgule, les deux-points, la parenthèse ou le point.
+- Le tiret cadratin (U+2014) et le tiret demi-cadratin (U+2013) sont proscrits par défaut. Voir la section 9 ci-dessous, qui donne le motif : il n'est pas typographique.
 - Les points de suspension s'écrivent toujours au nombre de trois, en un seul caractère. À éviter dans un texte professionnel.
 - Le point d'exclamation est réservé à la citation. Il n'a pas sa place dans une analyse.
 - La parenthèse interrompt le fil : une par paragraphe au maximum.
@@ -87,3 +87,30 @@ Les locutions latines s'italisent, sauf cf., etc. et N.B.
 - Les heures s'écrivent 14 h 30, avec espaces insécables. La forme 14h30 est tolérée à l'écran, jamais dans un texte soigné.
 - Les décennies s'écrivent « les années 1990 », non « les années 90 » ni « les 90's ».
 - Une période s'écrit « de 2023 à 2026 », non avec un tiret.
+
+## 9. Le cas du tiret cadratin
+
+Le tiret cadratin n'est pas une faute en français, et prétendre le contraire revient à se faire corriger par le premier lecteur compétent. Le *Lexique* l'admet en incise et le prescrit pour le dialogue. La littérature française en use depuis toujours.
+
+Le motif de l'interdiction est statistique. Depuis 2023, un texte professionnel français qui porte trois cadratins est lu comme généré, quel qu'en soit l'auteur. On l'évite comme on évite une coupe de cheveux datée, pas comme on évite une faute d'accord.
+
+C'est la seule position tenable, et elle vaut pour toutes les règles de ce skill : une prescription dont on ne peut pas donner le motif est une superstition.
+
+Quatre exceptions, qui se lèvent pour un motif nommé et jamais par confort :
+
+1. le dialogue de fiction, où le tiret marque le changement de locuteur ;
+2. la citation d'une œuvre existante, qu'on ne retouche pas ;
+3. une convention typographique imposée par le support ;
+4. la demande explicite de l'utilisateur.
+
+Hors exception, remplacer par la virgule, les deux-points, la parenthèse ou le point. Le choix n'est pas indifférent : la virgule enchaîne, les deux-points annoncent, la parenthèse écarte, le point sépare. Le cadratin fait les quatre à la fois, ce qui est précisément son défaut.
+
+## 10. Écriture inclusive
+
+Défaut du skill, réglable sur demande explicite de l'utilisateur.
+
+- **Préférer les tournures épicènes et les collectifs** : l'équipe de recherche, le personnel soignant, la clientèle, les personnes candidates. C'est la solution qui coûte le moins à la lecture.
+- **Point médian proscrit par défaut.** Le motif est technique et non politique : les lecteurs d'écran le vocalisent mal, il casse la recherche plein texte, et il rend la césure imprévisible. Si l'utilisateur le demande, l'appliquer sans discuter.
+- **Doublets complets admis quand ils sont courts** et qu'ils tombent naturellement : celles et ceux, toutes et tous.
+- **Accord de proximité** admis, sans le systématiser.
+- Quand le genre d'une personne n'est pas connu, ne pas le supposer. Reformuler pour l'éviter.

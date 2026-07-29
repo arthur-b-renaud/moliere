@@ -8,9 +8,10 @@ Il ne juge pas le style, il mesure ce qui se mesure.
 
 Aucune dependance. Python 3.8 et plus.
 
-    python3 scripts/moliere_lint.py texte.md --profil post
-    python3 scripts/moliere_lint.py exemples/*.md --json
-    python3 scripts/moliere_lint.py skills/ --controles typo
+    python3 moliere_lint.py texte.md --profil document
+    python3 moliere_lint.py texte.md --profil post
+    python3 moliere_lint.py slides.md --profil presentation
+    python3 moliere_lint.py exemples/*.md --json
 
 Licence MIT. Voir LICENSE.
 """
@@ -39,7 +40,31 @@ ORDRE = {BLOQUANT: 0, DEFAUT: 1, ALERTE: 2, INFO: 3}
 # Profils
 # --------------------------------------------------------------------------
 
+# Trois supports, qui correspondent aux trois cas d'usage : un document de
+# plusieurs pages, une publication courte, un jeu de slides.
+#
+# Une slide n'a ni attaque, ni chute, ni rythme : ces trois controles sont
+# desactives en profil presentation, sans quoi tout le fichier sortirait en
+# faute. En echange, elle porte deux contraintes que les autres n'ont pas,
+# la longueur des puces et la ponctuation finale.
+
 PROFILS = {
+    "document": {
+        "attaque_max": None,
+        "coupure": None,
+        "longueur_max": None,
+        "staccato_permis": 0,
+        "phrase_un_mot_permise": 0,
+        "hashtags_max": 0,
+        "exclamations_max": 0,
+        "gras_interdit": False,
+        "adresse_lecteur": False,
+        "controle_attaque": False,
+        "controle_chute": True,
+        "controle_rythme": True,
+        "puce_max_mots": None,
+        "puce_sans_point_final": False,
+    },
     "post": {
         "attaque_max": 150,
         "coupure": 140,
@@ -51,47 +76,31 @@ PROFILS = {
         "gras_interdit": True,
         "adresse_lecteur": True,
         "controle_attaque": True,
+        "controle_chute": True,
+        "controle_rythme": True,
+        "puce_max_mots": None,
+        "puce_sans_point_final": False,
     },
-    "note": {
+    "presentation": {
         "attaque_max": None,
         "coupure": None,
         "longueur_max": None,
-        "staccato_permis": 0,
-        "phrase_un_mot_permise": 0,
+        "staccato_permis": None,
+        "phrase_un_mot_permise": None,
         "hashtags_max": 0,
         "exclamations_max": 0,
         "gras_interdit": False,
         "adresse_lecteur": False,
         "controle_attaque": False,
-    },
-    "courriel": {
-        "attaque_max": 150,
-        "coupure": 90,
-        "longueur_max": None,
-        "staccato_permis": 0,
-        "phrase_un_mot_permise": 0,
-        "hashtags_max": 0,
-        "exclamations_max": 1,
-        "gras_interdit": False,
-        "adresse_lecteur": True,
-        "controle_attaque": True,
-    },
-    "proposition": {
-        "attaque_max": None,
-        "coupure": None,
-        "longueur_max": None,
-        "staccato_permis": 0,
-        "phrase_un_mot_permise": 0,
-        "hashtags_max": 0,
-        "exclamations_max": 0,
-        "gras_interdit": False,
-        "adresse_lecteur": False,
-        "controle_attaque": False,
+        "controle_chute": False,
+        "controle_rythme": False,
+        "puce_max_mots": 12,
+        "puce_sans_point_final": True,
     },
 }
 
 # --------------------------------------------------------------------------
-# Listes noires, tirees de references/marqueurs-llm.md
+# Listes noires, tirees de references/marqueurs.md
 # --------------------------------------------------------------------------
 
 ADJECTIFS = """crucial cruciale cruciaux essentiel essentielle essentiels
@@ -134,22 +143,22 @@ LOCUTIONS = [
 
 ADVERBES_LIAISON = ["par ailleurs", "de plus", "en outre", "neanmoins", "notamment"]
 
+# Ne figurent ici que les constructions fautives ou imprecises en francais,
+# jamais les emprunts de vocabulaire. « digital » et « impacter » en ont ete
+# retires : les proscrire est une position de puriste que l'usage de 2026 ne
+# soutient plus, et le skill ne fait pas la chasse aux anglicismes. Le critere
+# d'entree dans cette liste : le mot francais existe, il est plus precis, et
+# personne ne dit l'anglais faute de mieux.
+
 CALQUES = {
     "adresser": "traiter, prendre en charge, s'attaquer a",
     "adressons": "traitons",
-    "adresse": "traite",
     "initier": "lancer, engager, ouvrir",
     "initie": "lance",
     "delivrer": "livrer, produire, tenir",
-    "impacter": "affecter, peser sur",
-    "impacte": "affecte",
-    "impact": "effet, consequence, portee",
-    "digital": "numerique",
-    "digitale": "numerique",
-    "digitales": "numeriques",
-    "digitalisation": "numerisation",
+    "supporter un format": "prendre en charge, admettre",
+    "supporte le format": "prend en charge le format",
     "investiguer": "enqueter sur, examiner",
-    "challenger": "contester, mettre a l'epreuve",
     "basee": "fondee, appuyee",
     "basees": "fondees",
     "base sur": "fonde sur, a partir de",
@@ -398,7 +407,7 @@ def controles_langue(prose, plat, profil, cfg):
     # 3. Rythme
     longueurs = [len(mots(p)) for p in ps]
     longueurs = [n for n in longueurs if n > 0]
-    if len(longueurs) >= 4:
+    if cfg["controle_rythme"] and len(longueurs) >= 4:
         moy = statistics.mean(longueurs)
         ec = statistics.pstdev(longueurs)
         detail = f"moyenne {moy:.1f} mots · ecart type {ec:.1f}"
@@ -445,7 +454,7 @@ def controles_langue(prose, plat, profil, cfg):
                              "elle demande au lecteur le travail que le texte devait faire", 1))
 
     # 5. Chute
-    if len(ps) >= 2:
+    if cfg["controle_chute"] and len(ps) >= 2:
         derniere, avant = len(mots(ps[-1])), len(mots(ps[-2]))
         if derniere > avant:
             c.append(Constat(ALERTE, "chute-longue",
@@ -567,13 +576,15 @@ def controles_langue(prose, plat, profil, cfg):
         if i + 1 in courtes:
             series += 1
         precedent = i
-    if series > cfg["staccato_permis"]:
+    # En profil presentation, les deux seuils sont a None : une slide est faite
+    # de fragments, la phrase breve y est la norme et non un tic.
+    if cfg["staccato_permis"] is not None and series > cfg["staccato_permis"]:
         c.append(Constat(DEFAUT, "staccato",
                          f"{series} serie(s) de phrases courtes "
                          f"(maximum {cfg['staccato_permis']})",
                          "signature du copywriting anglo-saxon : le francais articule"))
     un_mot = sum(1 for n in longueurs if n == 1)
-    if un_mot > cfg["phrase_un_mot_permise"]:
+    if cfg["phrase_un_mot_permise"] is not None and un_mot > cfg["phrase_un_mot_permise"]:
         c.append(Constat(DEFAUT, "phrase-un-mot",
                          f"{un_mot} phrase(s) d'un seul mot "
                          f"(maximum {cfg['phrase_un_mot_permise']})"))
@@ -629,6 +640,60 @@ def controles_langue(prose, plat, profil, cfg):
 # --------------------------------------------------------------------------
 
 
+# --------------------------------------------------------------------------
+# Controles propres aux slides
+# --------------------------------------------------------------------------
+
+RE_PUCE = re.compile(r"^\s*(?:[-*+•]|\d+[.)])\s+(.*\S)\s*$", re.M)
+
+
+def sans_code(source: str) -> str:
+    """Blanchit les blocs de code et les commentaires, a longueur constante.
+
+    Remplacer par du vide decalerait toutes les positions et fausserait les
+    numeros de ligne. On substitue caractere pour caractere, sauf les sauts.
+    """
+    def blanchir(m):
+        return "".join(ch if ch == "\n" else " " for ch in m.group(0))
+
+    texte = re.sub(r"^```.*?^```", blanchir, source, flags=re.S | re.M)
+    texte = re.sub(r"^~~~.*?^~~~", blanchir, texte, flags=re.S | re.M)
+    return re.sub(r"<!--.*?-->", blanchir, texte, flags=re.S)
+
+
+def controles_puces(source, cfg):
+    """Longueur et ponctuation des puces. N'agit qu'en profil presentation.
+
+    Une puce n'est pas une phrase : ni verbe conjugue superflu, ni point final.
+    Le controle porte sur le balisage brut, avant que prepare() ne l'efface.
+    """
+    if cfg["puce_max_mots"] is None and not cfg["puce_sans_point_final"]:
+        return []
+
+    c = []
+    longues, ponctuees = [], []
+    for m in RE_PUCE.finditer(sans_code(source)):
+        texte = re.sub(r"[`*_\[\]]", "", m.group(1)).strip()
+        if not texte:
+            continue
+        if cfg["puce_max_mots"] and len(mots(texte)) > cfg["puce_max_mots"]:
+            longues.append((texte, ligne_de(source, m.start())))
+        if cfg["puce_sans_point_final"] and texte.endswith("."):
+            ponctuees.append((texte, ligne_de(source, m.start())))
+
+    if longues:
+        c.append(Constat(DEFAUT, "puce-longue",
+                         f"{len(longues)} puce(s) de plus de {cfg['puce_max_mots']} mots",
+                         f"« {longues[0][0][:70]}… » · au-dela, la slide est un document",
+                         longues[0][1]))
+    if ponctuees:
+        c.append(Constat(ALERTE, "puce-ponctuee",
+                         f"{len(ponctuees)} puce(s) terminee(s) par un point",
+                         "une puce n'est pas une phrase : pas de point final",
+                         ponctuees[0][1]))
+    return c
+
+
 def analyser(chemin, profil, controles):
     with open(chemin, encoding="utf-8") as f:
         source = f.read()
@@ -639,6 +704,7 @@ def analyser(chemin, profil, controles):
     constats = controles_typo(source, prose, profil, cfg)
     if controles == "tout":
         constats += controles_langue(prose, plat, profil, cfg)
+        constats += controles_puces(source, cfg)
 
     if drapeaux["contre_exemples"]:
         for c in constats:
@@ -706,8 +772,8 @@ def main(argv=None):
         description="Controle mecanique d'un texte francais. "
                     "Compte ce qui se compte, ne juge pas ce qui se juge.")
     p.add_argument("fichiers", nargs="+", help="fichiers ou dossiers a controler")
-    p.add_argument("--profil", default="post", choices=sorted(PROFILS),
-                   help="profil de redaction (defaut : post)")
+    p.add_argument("--profil", default="document", choices=sorted(PROFILS),
+                   help="support vise (defaut : document)")
     p.add_argument("--controles", default="tout", choices=("tout", "typo"),
                    help="tout, ou seulement les controles typographiques")
     p.add_argument("--seuil", type=int, default=0,

@@ -8,7 +8,7 @@ Chaque entrée donne le défaut, la position actuelle, et la réécriture propos
 
 ## 1. La voix passive est interdite trop largement
 
-**Position actuelle.** `phrase-francaise.md` §6 proscrit la voix passive systématique et `clinique.md` n° 13 la traite comme un défaut.
+**Position actuelle.** `STYLE.md` §4 privilégie l'actif et `exemples-phrases.md` n° 13 traite le passif comme un défaut. `references/fautes.md` §8 le réhabilite en partie, ce qui laisse le dépôt à deux voix.
 
 **Objection.** Le passif est parfois le seul choix correct. Quand l'agent est inconnu (« le corps a été retrouvé mardi »), quand il est indifférent (« la loi a été votée en 2019 »), quand la thématisation impose l'objet en tête, l'actif force à inventer un sujet ou à alourdir la phrase. Le français administratif abuse du passif, ce qui n'en fait pas une faute.
 
@@ -16,35 +16,31 @@ Chaque entrée donne le défaut, la position actuelle, et la réécriture propos
 
 ---
 
-## 2. Les points de suspension et l'exclamation sont interdits sans nuance
+## 2. Les points de suspension restent interdits sans nuance
 
-**Position actuelle.** `typographie.md` §2 réserve l'exclamation à la citation et déconseille les points de suspension. Le profil `post` autorise une exclamation par texte, ce qui est un rattrapage tardif.
+**Position actuelle.** `typographie.md` §2 réserve l'exclamation à la citation et déconseille les points de suspension. Le profil `post` autorise une exclamation par texte.
 
-**Objection.** Sur un post, les points de suspension marquent une hésitation qui peut être exactement l'effet cherché. L'exclamation dans un remerciement ou une annonce n'est pas un tic, c'est du registre.
+**Ce qui a été fait.** L'exclamation est devenue un défaut de support et non de langue, réglé par les profils.
 
-**Réécriture proposée.** Traiter les deux comme des défauts de profil et non de langue : proscrits en `note` et `proposition`, tolérés une fois en `post` et `courriel`.
-
----
-
-## 3. `SKILL.md` reste long
-
-**Position actuelle.** Environ 1 650 mots, chargés en contexte à chaque déclenchement.
-
-**Objection.** Une partie du contenu ne sert qu'à la lecture humaine : les tableaux de profils pourraient tenir en cinq lignes, la section sur l'articulation avec un skill de format est rarement utile.
-
-**Ce qui a été fait.** Les redondances entre `SKILL.md` et les fichiers de références ont été supprimées : l'interdiction du participe présent apparaissait quatre fois dans la version d'origine, celle du cadratin également.
-
-**Ce qui reste ouvert.** Faut-il descendre sous les mille mots, au prix d'un skill moins lisible pour l'humain qui l'installe ? Il n'existe aucune mesure de l'effet réel sur la qualité produite, donc aucune raison objective de trancher.
+**Ce qui reste ouvert.** Les points de suspension sortent toujours en alerte quel que soit le support. Sur une publication, ils marquent une hésitation qui peut être exactement l'effet cherché. Le contrôle devrait suivre le profil, comme l'exclamation.
 
 ---
 
-## 4. Le registre de presse repose sur deux titres
+## 3. Le poids du skill s'est déplacé, il n'a pas disparu
 
-**Position actuelle.** `registre-presse.md` s'appuie sur *Les Echos* et *Le Monde*.
+**Position actuelle.** 541 mots de corps et 109 mots de description, contre 2 308 dans la version d'origine.
 
-**Objection.** Deux titres de la presse nationale de qualité ne font pas une norme du français professionnel. Le registre décrit est celui d'une élite éditoriale parisienne. Un texte destiné à une revue technique, à une collectivité territoriale ou à un lectorat associatif n'en relève pas.
+**Ce qui a été fait.** `SKILL.md` est devenu une porte d'entrée : ce que fait le skill, où aller, quels outils. Les règles sont descendues dans `STYLE.md`, qui n'est lu qu'au moment d'écrire.
 
-**Réécriture proposée.** Renommer le fichier et son ambition : ce n'est pas « le registre de la presse française », c'est « un registre d'analyse tenue ». Le fichier gagnerait à décrire ce qu'il fait plutôt qu'à invoquer une autorité.
+**Ce qui reste ouvert.** Le poids total n'a pas diminué, il s'est déplacé. Un agent qui rédige lit `SKILL.md` puis `STYLE.md`, soit environ 2 400 mots, contre 2 308 auparavant. Le gain est réel pour les sessions où le skill se déclenche sans qu'on écrive, et nul pour les autres. Personne n'a mesuré la proportion.
+
+---
+
+## 4. Le registre décrit reste celui d'une élite éditoriale
+
+**Ce qui a été fait.** Le fichier `registre-presse.md`, qui s'appuyait sur *Les Echos* et *Le Monde*, a été supprimé. Sa déontologie est passée dans `STYLE.md` §5 et sa distance dans `supports.md`, sans invoquer d'autorité.
+
+**Ce qui reste ouvert.** Le registre décrit reste celui du français professionnel parisien. Un texte destiné à une revue technique, à une collectivité territoriale ou à un lectorat associatif n'en relève pas, et le dépôt ne le dit nulle part.
 
 ---
 
@@ -60,11 +56,13 @@ Chaque entrée donne le défaut, la position actuelle, et la réécriture propos
 
 ## 6. Les listes de marqueurs ne sont pas mesurées
 
-**Position actuelle.** `marqueurs-llm.md` donne des seuils chiffrés : « plus de deux items pour trois cents mots, le texte sonne artificiel ».
+**Position actuelle.** `marqueurs.md` donne des seuils chiffrés : « plus de deux items pour trois cents mots, le texte sonne artificiel ».
 
 **Objection.** Ces seuils n'ont aucune base statistique. Ils viennent d'une lecture attentive, pas d'un corpus annoté. Les publier sous forme de nombres leur donne une autorité qu'ils n'ont pas.
 
-**Réécriture proposée.** Soit constituer un corpus et mesurer, soit dire explicitement que les seuils sont empiriques. La seconde option a été retenue dans le README ; le fichier lui-même n'a pas encore été corrigé.
+**Ce qui a été fait.** Le fichier le dit désormais lui-même, en clair, à la fin de sa section 5.
+
+**Ce qui reste ouvert.** Le dire ne le corrige pas. Il faudrait constituer un corpus annoté et mesurer les fréquences réelles. C'est la contribution la plus utile que ce dépôt puisse recevoir.
 
 ---
 
@@ -109,3 +107,23 @@ Chaque entrée donne le défaut, la position actuelle, et la réécriture propos
 **Objection.** Le chiffre a été ajouté pour remplacer un « avec le moins de modifications possible » qui n'engageait à rien. Il n'est pas plus fondé : une phrase sur trois sur un texte de six phrases n'a pas le même sens que sur un texte de soixante.
 
 **Ce qu'il faudrait.** Un budget de modification exprimé en distance d'édition, mesuré par un script. Personne ne l'a écrit.
+
+---
+
+## 11. Le retrait du corpus rend l'imitation de voix volatile
+
+**Ce qui a été fait.** Le fichier `corpus-voix.md`, livré vide et présenté comme le plus important du dépôt, a été supprimé. Un skill qui exige d'être édité avant de servir n'est pas distribuable : le clone devient sale et le premier `git pull` produit un conflit.
+
+**Le prix.** La voix ne se calibre plus que sur ce que l'utilisateur colle dans la conversation, et rien ne survit d'une session à l'autre. Celui qui écrit tous les jours au nom de la même personne devra recoller ses exemples chaque fois.
+
+**Ce qui n'a pas été fait.** Un mécanisme de persistance hors du dépôt, dans le fichier de mémoire personnel de l'utilisateur. Cela reste possible et ne demanderait qu'une ligne de documentation, mais cela réintroduirait une notion de configuration, que ce dépôt a choisi d'écarter.
+
+---
+
+## 12. Le renversement sur les anglicismes déplace une frontière que personne n'a mesurée
+
+**Ce qui a été fait.** Le skill ne fait plus la chasse aux anglicismes. Il corrige les constructions fautives ou imprécises, garde les emprunts que la profession emploie, et tranche le reste par une question d'usage. Les entrées `digital` et `impacter` ont été retirées de la liste des calques du linter.
+
+**L'objection.** Ce déplacement repose sur un jugement, pas sur une mesure. Un lectorat administratif, universitaire ou institutionnel jugera le résultat trop relâché, et il aura ses raisons. La règle « est-ce le mot que la profession emploie à l'oral » suppose en outre qu'on connaisse la profession du lecteur, ce qui n'est pas toujours le cas.
+
+**Position assumée.** Une prescription de vocabulaire qui va contre l'usage d'un métier produit un texte plus artificiel que l'emprunt qu'elle évite. Mais la frontière bouge d'année en année, et ce fichier ne prétend pas la fixer.

@@ -22,10 +22,12 @@ jobs:
 
       - name: Les exemples corrigés passent le contrôle
         run: |
-          python3 scripts/moliere_lint.py exemples/post-apres.md \
+          python3 skills/moliere/scripts/moliere_lint.py exemples/post-apres.md \
             --profil post --seuil 90 --strict
-          python3 scripts/moliere_lint.py exemples/note-apres.md \
-            --profil note --seuil 90 --strict
+          python3 skills/moliere/scripts/moliere_lint.py exemples/document-apres.md \
+            --profil document --seuil 90 --strict
+          python3 skills/moliere/scripts/moliere_lint.py exemples/presentation-apres.md \
+            --profil presentation --seuil 90 --strict
 
       - name: Les exemples marqués sont bien détectés
         run: |
@@ -34,13 +36,14 @@ jobs:
 
           def score(chemin, profil):
               out = subprocess.run(
-                  [sys.executable, "scripts/moliere_lint.py", chemin,
+                  [sys.executable, "skills/moliere/scripts/moliere_lint.py", chemin,
                    "--profil", profil, "--json"],
                   capture_output=True, text=True, check=True).stdout
               return json.loads(out)[0]["score"]
 
           for chemin, profil in (("exemples/post-avant.md", "post"),
-                                 ("exemples/note-avant.md", "note")):
+                                 ("exemples/document-avant.md", "document"),
+                                 ("exemples/presentation-avant.md", "presentation")):
               s = score(chemin, profil)
               print(f"{chemin} : {s}/100")
               assert s < 70, f"{chemin} devrait etre detecte comme marque"
@@ -48,16 +51,16 @@ jobs:
 
       - name: Typographie du skill lui-même
         run: |
-          python3 scripts/moliere_lint.py skills/ \
-            --controles typo --profil note --seuil 85 --strict
+          python3 skills/moliere/scripts/moliere_lint.py skills/ \
+            --controles typo --profil document --seuil 85 --strict
 
       # Les fichiers *-avant.md gardent volontairement leurs marqueurs :
       # ce sont les cas de test de detection, pas des textes a corriger.
       - name: L'autofixeur n'a plus rien à corriger
         run: |
-          python3 scripts/typo_fix.py skills/ exemples/post-apres.md \
-            exemples/note-apres.md | tee /tmp/typo.txt
+          python3 skills/moliere/scripts/typo_fix.py skills/ exemples/post-apres.md \
+            exemples/document-apres.md exemples/presentation-apres.md | tee /tmp/typo.txt
           grep -q "rien a corriger" /tmp/typo.txt
 
       - name: Les scripts se compilent
-        run: python3 -m compileall -q scripts/
+        run: python3 -m compileall -q skills/moliere/scripts/

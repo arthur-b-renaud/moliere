@@ -7,7 +7,7 @@ Ce dossier ne contient que ce qui ne peut pas être écrit en texte. Un tableau 
 | Fichier | Origine | Comment le refaire |
 |---|---|---|
 | `entete.webp` | Montage de deux portraits du domaine public, voir `SOURCES.md` | Recadrer en 1280 × 400 pour la bannière |
-| `rythme.svg` | Généré | `python3 scripts/courbe_rythme.py exemples/note-avant.md exemples/note-apres.md -o assets/rythme.svg --titres "texte marqué : plateau" "texte révisé : respiration"` |
+| `rythme.svg` | Généré | `python3 skills/moliere/scripts/courbe_rythme.py exemples/document-avant.md exemples/document-apres.md -o assets/rythme.svg --titres "texte marqué : plateau" "texte révisé : respiration"` |
 
 `rythme.svg` est régénérable et versionné. Il ne demande aucune dépendance, il pèse trois kilo-octets, et il reste lisible en thème clair comme en thème sombre.
 

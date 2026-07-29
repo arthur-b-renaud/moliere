@@ -21,7 +21,7 @@ Dans `~/.claude/settings.json` (portée globale) ou `.claude/settings.json` (por
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/scripts/hook-moliere.sh"
+            "command": "$CLAUDE_PROJECT_DIR/skills/moliere/scripts/hook-moliere.sh"
           }
         ]
       }
@@ -30,7 +30,7 @@ Dans `~/.claude/settings.json` (portée globale) ou `.claude/settings.json` (por
 }
 ```
 
-Puis créer `scripts/hook-moliere.sh`, exécutable :
+Puis créer `skills/moliere/scripts/hook-moliere.sh`, exécutable :
 
 ```bash
 #!/usr/bin/env bash
@@ -43,7 +43,7 @@ fichier=$(jq -r '.tool_input.file_path // empty')
 [[ "$fichier" != *.md && "$fichier" != *.txt ]] && exit 0
 [[ ! -f "$fichier" ]] && exit 0
 
-rapport=$(python3 "$CLAUDE_PROJECT_DIR/scripts/moliere_lint.py" \
+rapport=$(python3 "$CLAUDE_PROJECT_DIR/skills/moliere/scripts/moliere_lint.py" \
             "$fichier" --profil post --json 2>/dev/null) || exit 0
 
 echo "$rapport" | jq -r '
@@ -56,7 +56,7 @@ echo "$rapport" | jq -r '
 ```
 
 ```bash
-chmod +x scripts/hook-moliere.sh
+chmod +x skills/moliere/scripts/hook-moliere.sh
 ```
 
 Le hook a besoin de `jq`. Il sort en code 0 dans tous les cas : il informe, il ne bloque pas.

@@ -1,8 +1,8 @@
 <!-- moliere-lint: contre-exemples -->
 
-# Deux textes, avant et après
+# Trois textes, avant et après
 
-`clinique.md` opère à l'échelle de la phrase. Or le rythme, l'attaque, la relance et la chute ne se démontrent qu'à l'échelle du texte : une phrase peut être irréprochable et le texte illisible. Ce fichier donne deux textes entiers, chacun dans sa version marquée puis dans sa version corrigée, avec le relevé des interventions.
+`exemples-phrases.md` opère à l'échelle de la phrase. Or le rythme, l'attaque, la relance et la chute ne se démontrent qu'à l'échelle du texte : une phrase peut être irréprochable et le texte illisible. Ce fichier donne trois textes entiers, un par support, chacun dans sa version marquée puis dans sa version corrigée, avec le relevé des interventions.
 
 **Tous les faits, noms, lieux et chiffres de ces exemples sont inventés.** Ils servent à montrer ce que produit une écriture ancrée, pas à documenter quoi que ce soit. Ne jamais les reprendre comme sources.
 
@@ -97,7 +97,7 @@ Le staccato « Pas après. Avant. » est conservé : le profil `post` en tolère
 
 ---
 
-## Texte 2. Note d'analyse, profil `note`
+## Texte 2. Note d'analyse, profil `document`
 
 ### Avant
 
@@ -161,7 +161,7 @@ C'est peut-être là qu'il faudrait commencer à compter.
 
 | Nature | Détail |
 |---|---|
-| Attaque | Généralité sur l'époque remplacée par un fait daté et chiffré, conforme au modèle « le fait brut, en tête » de `registre-presse.md` |
+| Attaque | Généralité sur l'époque remplacée par un fait daté et chiffré, le fait brut placé en tête |
 | Nominalisation en chaîne | « la mise en œuvre de l'accompagnement des équipes dans le cadre de la transformation » : quatre noms abstraits pour zéro action |
 | Participe présent en queue | « permettant ainsi d'optimiser », « ayant déployé » |
 | Énumération ternaire | « robuste, évolutive et sécurisée » |
@@ -175,9 +175,53 @@ C'est peut-être là qu'il faudrait commencer à compter.
 
 ---
 
-## Ce que les deux textes ont en commun
+## Texte 3. Présentation, profil `presentation`
 
-Les deux versions marquées partagent le même défaut de fond, et les marqueurs n'en sont que la surface : **elles ne prennent aucun risque.** Aucune phrase n'y est réfutable, donc aucune n'est discutable, donc aucune n'est intéressante.
+C'est le support que les modèles servent le plus mal, parce qu'ils y écrivent de la prose. Voici la première slide de chaque version, qui suffit à montrer le geste ; le jeu complet figure dans le dossier `exemples/` du dépôt.
+
+### Avant
+
+```
+## Slide 1 : Introduction et contexte
+
+- Dans un monde où la maintenance industrielle se transforme en profondeur, il est
+  important de noter que notre approche doit évoluer.
+- Cette présentation a pour objectif de vous exposer les différents enjeux auxquels
+  nous sommes confrontés.
+- Nous aborderons successivement le contexte, les résultats et les perspectives.
+```
+
+### Après
+
+```
+## Slide 1 : Trois arrêts non planifiés sur quatre étaient prévisibles
+
+- 41 arrêts non planifiés en 2025
+- 31 précédés d'un signal capteur ignoré
+- Coût moyen d'un arrêt : 18 400 €
+
+> À dire : les 31 cas sont ceux où un seuil de vibration avait été franchi plus de
+> six heures avant la panne. L'information existait, personne ne la regardait.
+```
+
+### Relevé des interventions
+
+| Nature | Détail |
+|---|---|
+| Titre | « Introduction et contexte » nomme un thème ; le titre corrigé énonce le constat. Un jeu de slides dont on ne lit que les titres doit se tenir |
+| Longueur des puces | Vingt-trois mots pour la première puce, ramenés à six. Au-delà de douze, la slide est un document |
+| Ponctuation | Points finaux retirés : une puce n'est pas une phrase |
+| Prose déplacée | Ce qui relevait du commentaire est descendu dans les notes de l'orateur, où il sert à celui qui parle au lieu d'être lu à l'écran |
+| Annonce de plan | La troisième puce annonçait le déroulé, ce que la barre de progression fait déjà |
+| Ancrage | Zéro chiffre dans la version marquée. La version corrigée en porte trois, dont deux comparables entre eux |
+
+Ce que le linter ne contrôle pas en profil `presentation` : l'attaque, la chute et le rythme. Une slide n'en a pas, et les mesurer produirait des constats absurdes.
+
+---
+
+## Ce que les trois textes ont en commun
+
+Les trois versions marquées partagent le même défaut de fond, et les marqueurs n'en sont que la surface : **elles ne prennent aucun risque.** Aucune phrase n'y est réfutable, donc aucune n'est discutable, donc aucune n'est intéressante.
 
 Le correctif le plus rentable ne se trouve dans aucune liste noire. Il consiste à écrire une phrase qu'un lecteur compétent pourrait contester, puis à la défendre. Tout le reste suit : le fait daté arrive parce qu'il faut étayer, le verbe se précise parce qu'il faut être exact, et la chute cesse de résumer parce qu'il reste quelque chose à trancher.
 
