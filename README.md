@@ -1,3 +1,5 @@
+<!-- moliere-lint: contre-exemples -->
+
 <p align="center">
   <img src="assets/entete.webp" alt="Molière et Shakespeare" width="100%">
 </p>
@@ -19,15 +21,11 @@
 
 ---
 
-> **In English, briefly.** `moliere` is a Claude Code skill that writes and edits contemporary French prose without the tells of machine writing or literal translation from English. Its core is a single self-contained rules file, `STYLE.md`, which you can also paste straight into a GPT or a Gem if you don't use Claude Code. It ships with concrete before/after examples and a zero-dependency Python linter that measures what a language model cannot reliably count: sentence-length variance, opening-line length, marker density, factual anchoring. Three supports: multi-page documents, short posts, slide decks. Nothing to configure. Everything below is in French, because the subject is.
-
----
-
 ## Sommaire
 
+- [Installer](#installer)
 - [Le problème](#le-problème)
-- [Le fichier de règles, à copier partout](#le-fichier-de-règles-à-copier-partout)
-- [Installation](#installation)
+- [Le fichier de règles](#le-fichier-de-règles)
 - [Tutoriel en cinq minutes](#tutoriel-en-cinq-minutes)
 - [Les trois supports](#les-trois-supports)
 - [Les trois modes](#les-trois-modes)
@@ -42,6 +40,57 @@
 
 ---
 
+## Installer
+
+**Rien à configurer, aucun fichier à remplir.** Molière fonctionne dès la copie, et de la même façon pour tout le monde : il n'apprend rien de vous et ne garde rien.
+
+### Avec Claude Code
+
+```bash
+git clone https://github.com/arthur-b-renaud/moliere.git
+cp -r moliere/skills/moliere ~/.claude/skills/
+```
+
+C'est fini. Le skill est disponible dans toutes vos sessions, sur tous vos projets. Pour vérifier, tapez `/skills` : `moliere` doit apparaître dans la liste.
+
+Il se déclenche seul dès que vous écrivez ou faites relire du français. Vous n'avez rien à invoquer.
+
+Pour ne l'activer que sur un dépôt, mettez-le dans le projet plutôt que dans votre dossier personnel :
+
+```bash
+mkdir -p .claude/skills
+cp -r /chemin/vers/moliere/skills/moliere .claude/skills/
+```
+
+### Avec ChatGPT, Gemini ou n'importe quel autre assistant
+
+Ces outils n'acceptent pas les skills, mais ils acceptent une consigne. Or toutes les règles de Molière tiennent dans un seul fichier prévu pour ça : **[`skills/moliere/STYLE.md`](skills/moliere/STYLE.md)**, 1 900 mots.
+
+Il est autoportant. Il ne renvoie à aucun autre fichier, ne suppose aucun outil, et ne mentionne nulle part Claude Code. Ouvrez-le, copiez tout, collez.
+
+| Outil | Où coller |
+|---|---|
+| ChatGPT | Créer un GPT, puis *Configurer → Instructions*. Ou coller en tête d'une conversation, pour un texte isolé |
+| Gemini | Créer un Gem, puis le champ d'instructions |
+| Claude, application ou site | Créer un projet, puis les instructions personnalisées |
+| Le Chat, Copilot, et les autres | Le champ d'instructions système, quel que soit son nom |
+
+Le résultat est le même qu'avec le skill, à une chose près : sans les fichiers de référence, l'assistant n'a pas les exemples détaillés sous la main. Les règles, elles, y sont toutes.
+
+### Avec les exemples et les outils
+
+Les trois scripts sont livrés dans le skill : les deux méthodes ci-dessus les emportent déjà. Cloner le dépôt entier n'ajoute que les exemples, la critique publiée et le contrôle automatique.
+
+```bash
+git clone https://github.com/arthur-b-renaud/moliere.git
+cd moliere
+python3 skills/moliere/scripts/moliere_lint.py exemples/post-avant.md --profil post
+```
+
+Aucune dépendance à installer. Python 3.8 suffit, et les scripts restent facultatifs.
+
+---
+
 ## Le problème
 
 > « Ce que l'on conçoit bien s'énonce clairement, et les mots pour le dire arrivent aisément. »
@@ -49,7 +98,7 @@
 
 Un modèle de langue écrit un français grammaticalement correct et immédiatement reconnaissable. Ce n'est pas une question de vocabulaire. C'est le tiret cadratin en incise, le participe présent en fin de phrase, l'énumération à trois adjectifs, l'exemple sans nom propre ni date, et douze phrases de dix-huit mots à la file.
 
-Le voici, appliqué à un post que tout le monde a déjà lu :
+Le voici, appliqué à une publication que tout le monde a déjà lue :
 
 <table>
 <tr><th width="50%">Avant</th><th width="50%">Après</th></tr>
@@ -103,17 +152,13 @@ python3 skills/moliere/scripts/courbe_rythme.py avant.md apres.md -o rythme.svg
 
 ---
 
-## Le fichier de règles, à copier partout
+## Le fichier de règles
 
 > « Le style est l'homme même. »
 > Buffon, *Discours sur le style*, 1753
 
-Tout le contenu du skill tient dans un seul fichier :
-**[`skills/moliere/STYLE.md`](skills/moliere/STYLE.md)**, 1 900 mots, autoportant.
-
-Il ne renvoie à rien, ne suppose aucun outil, et ne mentionne nulle part Claude Code. C'est
-délibéré : **ouvrez-le, copiez-le, collez-le dans les instructions de votre GPT, de votre Gem ou
-de n'importe quel assistant.** Il y fonctionne tel quel.
+Voici ce que contient [`STYLE.md`](skills/moliere/STYLE.md), le fichier que vous copiez dans un
+assistant. Neuf sections, de la plus déterminante à la moins.
 
 | Section | Ce qu'elle règle |
 |---|---|
@@ -127,51 +172,11 @@ de n'importe quel assistant.** Il y fonctionne tel quel.
 | 8. Typographie | Le minimum vital |
 | 9. Eco | Quatre conseils qui commettent la faute qu'ils dénoncent |
 
-Le reste du dépôt sert à un agent qui sait lire un dossier : des exemples, des listes, des scripts.
-Le fichier ci-dessus suffit à un humain.
+L'ordre n'est pas décoratif. Ce qui distingue un bon français d'un français de machine tient d'abord à
+la construction de la phrase, et seulement en dernier lieu au vocabulaire et à la typographie.
 
----
-
-## Installation
-
-Trois voies. La première suffit dans la plupart des cas. **Il n'y a rien à configurer et aucun
-fichier à remplir : le skill fonctionne dès la copie.**
-
-### 1. Copier le skill
-
-```bash
-git clone https://github.com/arthur-b-renaud/moliere.git
-cp -r moliere/skills/moliere ~/.claude/skills/
-```
-
-Le skill est disponible dans toutes vos sessions Claude Code. Vérifier :
-
-```
-/skills
-```
-
-`moliere` doit apparaître dans la liste.
-
-### 2. Sur un seul projet
-
-```bash
-mkdir -p .claude/skills
-cp -r /chemin/vers/moliere/skills/moliere .claude/skills/
-```
-
-Utile quand un dépôt contient de la prose française (documentation, site, contenu) et pas les autres.
-
-### 3. Avec les exemples et l'intégration continue
-
-Les scripts sont livrés dans le skill : les deux voies ci-dessus les emportent déjà. Cloner le dépôt entier n'ajoute que les exemples, la critique et le contrôle automatique.
-
-```bash
-git clone https://github.com/arthur-b-renaud/moliere.git
-cd moliere
-python3 skills/moliere/scripts/moliere_lint.py exemples/post-avant.md --profil post
-```
-
-Aucune dépendance à installer. Python 3.8 suffit.
+Le reste du dépôt sert à un agent capable de lire un dossier : des exemples, des listes, des scripts.
+Ce fichier-là suffit à un humain.
 
 ---
 
@@ -180,18 +185,18 @@ Aucune dépendance à installer. Python 3.8 suffit.
 > « Je n'ai fait celle-ci plus longue que parce que je n'ai pas eu le loisir de la faire plus courte. »
 > Blaise Pascal, *Les Provinciales*, lettre XVI, 1657
 
-### Étape 1. Écrire un post
+### Étape 1. Écrire une publication
 
 Dans Claude Code, demandez simplement :
 
 ```
-Écris-moi un post LinkedIn sur le fait qu'on a divisé par trois
+Écris-moi une publication LinkedIn sur le fait qu'on a divisé par trois
 notre délai de recrutement en répondant sous 48 h.
 ```
 
 Le skill se déclenche seul. Il lit `STYLE.md`, prend le profil `post` et applique le socle commun. Vous n'avez rien à invoquer.
 
-Ce qu'il fait sans qu'on le lui demande : il vous réclamera un chiffre si vous n'en donnez pas. C'est voulu. Un post sans fait opposable est un post que personne ne discutera.
+Ce qu'il fait sans qu'on le lui demande : il vous réclamera un chiffre si vous n'en donnez pas. C'est voulu. Une publication sans fait opposable est une publication que personne ne discutera.
 
 ### Étape 2. Faire réviser un texte reçu
 
@@ -260,9 +265,9 @@ Le style ne change pas d'un support à l'autre. La longueur, la distance au lect
 |---|---|---|
 | **`document`** *(défaut)* | Devis, proposition, note, rapport, compte rendu. Un courriel est un document court | Plan apparent, distance, troisième personne, attribution des sources. Un devis engage : verbe précis, chiffre opposable, date, et pas de litote |
 | **`post`** | Publication courte, billet, message de communauté | Le « je » et l'adresse au lecteur sont autorisés, le staccato toléré une fois, l'attaque doit tenir avant la coupure du « voir plus » |
-| **`presentation`** | Slides, quel que soit l'outil | Le titre porte le message et non le sujet, douze mots par puce, pas de point final, la prose descend dans les notes |
+| **`presentation`** | Diapositives, quel que soit l'outil | Le titre porte le message et non le sujet, douze mots par puce, pas de point final, la prose descend dans les notes |
 
-Une slide n'a ni attaque, ni chute, ni rythme : le linter ne contrôle pas ces trois points en profil `presentation`. Le détail est dans [`supports.md`](skills/moliere/references/supports.md), le seul fichier du dépôt qui parle d'un support plutôt que de la langue.
+Une diapositive n'a ni attaque, ni chute, ni rythme : le linter ne contrôle pas ces trois points en profil `presentation`. Le détail est dans [`supports.md`](skills/moliere/references/supports.md), le seul fichier du dépôt qui parle d'un support plutôt que de la langue.
 
 ---
 
@@ -347,7 +352,7 @@ Ce qu'il mesure :
 - ouvertures de paragraphe identiques, répétition d'un mot saillant sous quarante mots
 - densité de marqueurs lexicaux pour trois cents mots, calques de l'anglais, abréviations de jargon
 - ancrage : présence d'au moins un chiffre, un nom propre ou une date
-- contraintes de plateforme : hashtags, hashtags génériques, longueur
+- contraintes de plateforme : nombre de mots-dièse, mots-dièse génériques, longueur
 - puces trop longues et puces terminées par un point, en profil `presentation`
 
 Ce qu'il ne mesure pas : l'orthographe, les accords, la conjugaison. Voir [`skills/moliere/scripts/correcteurs.md`](skills/moliere/scripts/correcteurs.md) pour les ponts vers LanguageTool, Grammalecte et Hunspell, qui couvrent exactement ce qui manque.
@@ -360,11 +365,11 @@ Un fichier qui contient délibérément des contre-exemples se déclare, et tous
 
 ### Ce dépôt s'applique ses propres règles
 
-L'[intégration continue](.github/workflows/lint.yml) exige que les trois exemples corrigés obtiennent au moins 90, que les trois versions marquées soient détectées sous 70, et que la typographie du skill lui-même soit propre. Si le linter échoue, c'est le linter ou l'exemple qui a tort, et il faut trancher avant de fusionner.
+L'[intégration continue](.github/workflows/lint.yml) exige que les trois exemples corrigés obtiennent au moins 90, que les trois versions marquées soient détectées sous 70, et que la typographie du skill lui-même soit propre. Si le contrôle échoue, c'est le linter ou l'exemple qui a tort, et il faut trancher avant de fusionner.
 
-### Le hook, non livré
+### Le déclencheur automatique, non livré
 
-Un hook `PostToolUse` qui lance le linter à chaque écriture de fichier rendrait les règles réellement contraignantes. Il n'est pas activé dans ce dépôt, parce qu'un hook s'exécute chez celui qui l'installe et que personne n'aime le découvrir après coup. La procédure complète est dans [`skills/moliere/scripts/hook-exemple.md`](skills/moliere/scripts/hook-exemple.md).
+Un `hook PostToolUse` qui lance le linter à chaque écriture de fichier rendrait les règles réellement contraignantes. Il n'est pas activé ici, parce qu'un déclencheur s'exécute chez celui qui l'installe et que personne n'aime le découvrir après coup. La procédure complète est dans [`skills/moliere/scripts/hook-exemple.md`](skills/moliere/scripts/hook-exemple.md).
 
 ---
 
@@ -420,7 +425,7 @@ Ce skill n'invente pas ses règles, il les emprunte, et il dit à qui : le *Lexi
 Le détail, édition par édition, est dans [`SOURCES.md`](SOURCES.md). Une règle dont on ne peut pas remonter la source est une opinion déguisée en méthode.
 
 > « Supprimez les adjectifs, les adverbes et tous les mots qui ne sont là que pour faire de l'effet. »
-> Georges Simenon, entretien à *The Paris Review*, 1955, traduit de l'anglais
+> Georges Simenon, entretien à la *Paris Review*, 1955
 
 ---
 
@@ -429,7 +434,7 @@ Le détail, édition par édition, est dans [`SOURCES.md`](SOURCES.md). Une règ
 Les contributions les plus utiles, par ordre :
 
 1. **Un marqueur qui manque**, avec un exemple réel et sa correction. C'est ce qui fait vieillir le mieux : les tics des modèles changent tous les six mois.
-2. **Un faux positif du linter**, avec le texte qui le déclenche. Un linter qui crie à tort est un linter qu'on désactive.
+2. **Un faux positif du linter**, avec le texte qui le déclenche. Un contrôle qui crie à tort est un contrôle qu'on désactive.
 3. **Une variante régionale** : belge, suisse, québécoise. Le skill n'en connaît aucune.
 4. **Une contestation argumentée** d'une règle. Voir `CRITIQUE.md` pour celles qui sont déjà ouvertes.
 

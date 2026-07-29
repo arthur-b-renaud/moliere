@@ -34,7 +34,8 @@ FINE = " "        # espace fine insecable
 RE_PROTEGE = re.compile(
     r"(?P<bloc>^```.*?^```|^~~~.*?^~~~)"      # blocs de code clotures
     r"|(?P<yaml>\A---\n.*?\n---\n)"           # frontmatter
-    r"|(?P<html>&lt;!--.*?--&gt;)"            # jamais atteint, garde-fou
+    r"|(?P<commentaire><!--.*?-->)"           # commentaires HTML
+    r"|(?P<balise><[a-zA-Z/][^>\n]*>)"        # balises HTML et leurs attributs
     r"|(?P<inline>`[^`\n]*`)"                 # code en ligne
     r"|(?P<lien>https?://\S+)",               # URL
     re.S | re.M)
