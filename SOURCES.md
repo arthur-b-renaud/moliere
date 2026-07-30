@@ -71,11 +71,13 @@ Chacune illustre une section, aucune n'est décorative.
 
 ## Images
 
-`assets/entete.webp` réunit deux portraits du domaine public : *Molière dans le rôle de César de La Mort de Pompée*, attribué à Nicolas Mignard, vers 1658, musée Carnavalet ; et le portrait dit Chandos de William Shakespeare, attribué à John Taylor, vers 1610, National Portrait Gallery.
+`assets/entete.webp` est *Molière dans le rôle de César de La Mort de Pompée*, attribué à Nicolas Mignard, vers 1658, musée Carnavalet. Numérisation de Wikimedia Commons, fichier `Molière_-_Nicolas_Mignard_(1658).jpg`, dans le domaine public :
 
-Le montage des deux toiles provient d'une source non identifiée. Les œuvres sont dans le domaine public ; si l'auteur du montage se reconnaît, ouvrir une issue et le crédit sera ajouté.
+> https://commons.wikimedia.org/wiki/File:Moli%C3%A8re_-_Nicolas_Mignard_(1658).jpg
 
-`assets/moliere-detoure.png` est le portrait de Mignard détouré à partir de ce montage, par le script `assets/gabarits/detoure.py`. L'œuvre étant dans le domaine public, le détourage l'est aussi.
+Le peintre est mort en 1668 et l'œuvre est dans le domaine public dans le monde entier. La numérisation d'une œuvre plane du domaine public n'ouvre pas de droit nouveau, ni en droit français ni au regard de la position de Wikimedia.
+
+`assets/moliere-detoure.webp` est ce même tableau détouré, produit par `assets/gabarits/detoure.py` à partir de `assets/entete.webp`. L'œuvre étant dans le domaine public, le détourage l'est aussi.
 
 ---
 

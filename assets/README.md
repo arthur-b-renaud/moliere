@@ -9,8 +9,8 @@ Ce dossier ne contient que ce qui ne peut pas être écrit en texte. Un tableau 
 | `social-preview.png` | 1280 × 640 | Vignette affichée quand le lien du dépôt est partagé | `gabarits/social.html`, rendu à 2× puis réduit |
 | `carte-marqueurs.png` | 1080 × 1080 | Section « Ce que le skill corrige », et se partage seule | `gabarits/carte.html`, même procédé |
 | `rythme.svg` | vectoriel | Section « Le marqueur qu'on ne voit pas en lisant » | commande ci-dessous |
-| `entete.webp` | bannière | Haut du README | Montage de deux portraits du domaine public, voir `SOURCES.md` |
-| `moliere-detoure.png` | 754 × 902, alpha | Illustration libre, fond transparent | `gabarits/detoure.py`, voir ci-dessous |
+| `entete.webp` | 1920 × 2399 | Frontispice du README, et source du détourage | Numérisation Wikimedia du tableau de Mignard, voir `SOURCES.md` |
+| `moliere-detoure.webp` | 1200 × 1440, alpha | Illustration libre, fond transparent | `gabarits/detoure.py`, voir ci-dessous |
 
 Les deux images matricielles se régénèrent à partir des gabarits HTML de `gabarits/`, sans autre dépendance qu'un navigateur :
 
@@ -34,12 +34,16 @@ python3 skills/moliere/scripts/courbe_rythme.py \
 ## Le portrait détouré
 
 ```bash
-python3 assets/gabarits/detoure.py 22 6 1.3 assets/moliere-detoure.png
+python3 assets/gabarits/detoure.py 20 15 3 /tmp/moliere.png
+convert /tmp/moliere.png -trim +repage -resize 1200x \
+  -quality 92 -define webp:alpha-quality=100 assets/moliere-detoure.webp
 ```
 
-Les trois arguments sont la tolérance de couleur, le rayon du filtre de taille et la plume. Le script est commenté : le fond du tableau est un noir verdâtre dont les feuilles les plus sombres du laurier ne se distinguent qu'à cinq niveaux près, ce qui interdit un seuil simple. Il procède par propagation depuis les bords, colmatage des interstices, rebouchage des poches enclavées, puis retrait de la seule poche de fond que le rameau de droite enferme.
+Le script lit `entete.webp` : rien à télécharger, et le détourage se refait à l'identique depuis le seul contenu du dépôt. Les trois arguments sont la tolérance colorimétrique, le rayon du filtre de taille et la plume.
 
-Le résultat tient sur fond clair sans liseré sombre, grâce à une décontamination des pixels de bordure au prorata de leur opacité.
+Il est commenté en tête de fichier, et il énonce sa propre limite. Mignard a peint la chevelure en fondu dans le fond : entre les deux, il n'existe aucune frontière, même pour un œil humain. Le détourage garde donc un peu de fond au pourtour des cheveux, ce qui se voit sur fond blanc et beaucoup moins sur un fond crème ou coloré. Ce n'est pas un défaut du script mais une propriété du tableau. Une rampe d'opacité douce a été essayée : elle délave tout, parce que les ombres du drapé et le bâton sont aussi proches du fond que la chevelure.
+
+Le reste tient proprement, y compris sur fond clair, grâce à une décontamination des pixels de bordure au prorata de leur opacité.
 
 ## L'aperçu social se règle à la main
 
@@ -51,10 +55,11 @@ Sans elle, GitHub affiche une vignette générique quand quelqu'un partage le li
 
 ## Ce qui manque encore
 
-**Une bannière recadrée.** `entete.webp` fait l'affaire mais n'est pas recadrée : les deux portraits en pied prennent trop de hauteur. Un recadrage sur les visages, avec le titre en surimpression, tiendrait mieux.
+**Une bannière large, si l'on en veut une.** Le frontispice actuel est le tableau entier, en portrait, affiché à 44 % de la largeur du README. C'est délibéré : un tableau de 1658 se regarde dans son cadre. Qui préfère une bannière peut recadrer sur le buste, en sachant que la composition de Mignard place la tête dans le tiers haut et qu'une coupe basse la décentre.
 
 ```bash
-convert assets/entete.webp -resize 1280x -gravity north -crop 1280x400+0+40 assets/banniere.webp
+convert assets/entete.webp -resize 1920x -crop 1920x600+0+380 +repage \
+  -resize 1280x -quality 84 assets/banniere.webp
 ```
 
 **Un enregistrement de terminal.** Une révision réelle, de la demande au texte rendu. À faire avec [`vhs`](https://github.com/charmbracelet/vhs), qui produit un GIF à partir d'un script versionnable, plutôt qu'avec un enregistreur d'écran dont personne ne pourra refaire la prise. Garder sous quarante secondes : au-delà, personne ne regarde jusqu'au bout.

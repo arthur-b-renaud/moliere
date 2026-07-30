@@ -1,7 +1,8 @@
 <!-- moliere-lint: contre-exemples -->
 
 <p align="center">
-  <img src="assets/entete.webp" alt="Molière et Shakespeare" width="100%">
+  <img src="assets/entete.webp" width="44%"
+       alt="Molière en César, portrait peint par Nicolas Mignard en 1658">
 </p>
 
 <h1 align="center">Molière</h1>
