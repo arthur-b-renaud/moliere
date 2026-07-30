@@ -323,8 +323,16 @@ def controles_typo(source, prose, profil, cfg):
                          "casse les lecteurs d'ecran", ligne_de(prose, m.start())))
         break
 
-    for m in re.finditer(r"\b\d+[.]\d+\b", prose):
-        if not re.match(r"\d+\.\d+\.\d+", m.group(0)):
+    # Un numero de version n'est pas un decimal : Apache 2.0, Python 3.8,
+    # SWE-bench 1.5. On les reconnait a ce qui les precede, un nom propre ou
+    # le mot « version ». Sans cette exemption, tout texte technique francais
+    # sort en bloquant, ce qui est le plus mauvais des faux positifs.
+    RE_VERSION = re.compile(
+        r"(?:[A-ZÀ-Þ][\w.+-]*|\bversion|\bv)\s*\d+[.]\d+(?:[.]\d+)*\b")
+    versions = {m.end() for m in RE_VERSION.finditer(prose)}
+
+    for m in re.finditer(r"\b\d+[.]\d+(?:[.]\d+)*\b", prose):
+        if m.group(0).count(".") == 1 and m.end() not in versions:
             c.append(Constat(BLOQUANT, "point-decimal",
                              f"point decimal dans « {m.group(0)} »",
                              "le francais ecrit la virgule decimale",
