@@ -191,8 +191,11 @@ jamais par confort.
    en français, il n'a aucun emploi légitime, et **cette règle ne souffre aucune exception**.
 2. **Virgule décimale, jamais le point.** 1,3 milliard. Le point décimal est une faute de langue et
    non une préférence, et **cette règle non plus ne souffre aucune exception**.
-3. **Pas d'énumération à trois adjectifs.** « Une plateforme rapide, fiable et évolutive. » Un
-   adjectif choisi vaut mieux que trois génériques.
+3. **Pas d'énumération à trois adjectifs génériques.** « Une plateforme rapide, fiable et
+   évolutive. » Un adjectif choisi vaut mieux que trois génériques. Le ternaire de noms ou de
+   propositions reste en revanche une bonne figure française (« Tout change : le modèle, les
+   usages, le métier. »), et trois adjectifs vérifiables passent (« claire, actionnable et
+   priorisée »).
 4. **Pas de tiret cadratin ni de demi-cadratin en incise.** Le motif est statistique et non
    typographique : depuis 2023, c'est le signe qui trahit le plus vite une écriture assistée.
    Remplacer par la virgule, les deux-points, la parenthèse ou le point. Exceptions : le dialogue

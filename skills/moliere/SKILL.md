@@ -39,6 +39,7 @@ Puis ouvrir la référence utile, jamais après coup :
 | `references/typographie.md` | Dès qu'il y a des chiffres, des citations, des sigles ou des majuscules |
 | `references/exemples-phrases.md` | Pour réviser une phrase. Réécritures commentées, du symptôme au remède |
 | `references/exemples-textes.md` | Pour réviser un texte entier. Trois textes complets, avant et après |
+| `references/paires-arthur.md` | Seulement pour un texte signé Arthur Renaud, et alors en premier. Quarante-six réécritures, avec leurs motifs |
 
 Le gras et les titres employés dans ces fichiers appartiennent à la consigne, jamais au texte
 livré. Ce que le skill s'autorise pour s'expliquer, il ne l'autorise pas dans ce qu'il produit.
@@ -67,6 +68,11 @@ ce que fait l'attaque, comment la chute retombe, où se trouve la rupture de ryt
 fond ni pour les idées.
 
 Sinon, écrire en français neutre, et ne rien réclamer.
+
+**Quand le texte est signé Arthur Renaud**, lire `references/paires-arthur.md` avant `STYLE.md` :
+ce sont ses propres corrections de phrases de modèle, et elles priment en cas de conflit. Elles
+tranchent notamment le ternaire, « impacter » et les expressions idiomatiques. Pour tout autre
+auteur, ignorer ce fichier.
 
 ## Les outils
 
